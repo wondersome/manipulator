@@ -1,15 +1,10 @@
-from pprint import pprint
 from project import degrees
 import time
 import math
-from motors import motor
 
-import RPi.GPIO as GPIO
+from pprint import pprint
+from project import degrees
 
-GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(23, GPIO.OUT)
-GPIO.setup(24, GPIO.OUT)
 scheme = [['R', 'C', 'y'],
           ['G', 'b', ''],
           ['Y', 'c', '']]
@@ -24,8 +19,7 @@ m = 90
 for x in blocks[1]:
     if x not in scheme[0] + scheme[1] + scheme[2]:
         algo.append(f'{blocks[1].index(x) + 1} throw from blocks')
-        print("выкидываем кубик поворачиваясь на градус", degrees(m, 0, int(blocks[1].index(x) + 1)))
-        motor(blocks[1].index(x) + 1)
+        print(f'выкидываем кубик {blocks[1].index(x) + 1} поворачиваясь на градус", {degrees(m, 0, int(blocks[1].index(x) + 1))}')
         if m + degrees(m, 0, int(blocks[1].index(x) + 1)) < 0:
             m += degrees(m, 0, int(blocks[1].index(x) + 1))+360
         elif m + degrees(m, 0, int(blocks[1].index(x) + 1)) > 360:
@@ -47,9 +41,8 @@ for col in range(3):
         elif col+1 == 3:
             h = 7
 
-        print(f'{blocks[1].index(first) + 1} маленький кубик перемещаем из колоды в строй под номером # {col + 1}',
-              degrees(m, 0, blocks[1].index(first) + 1))
-        motor(blocks[1].index(first) + 1)
+        print(f'Чтобы доехать до {blocks[1].index(first) + 1} башни (маленький кубик) поворачивааемся на '
+              f'{degrees(m, 0, blocks[1].index(first) + 1)}')
 
         if m + degrees(m, 0, blocks[1].index(first) + 1) < 0:
             m += degrees(m, 0, blocks[1].index(first) + 1) + 360
@@ -58,9 +51,9 @@ for col in range(3):
         else:
             m += degrees(m, 0, blocks[1].index(first) + 1)
 
-        print(f'все перемещение от {blocks[1].index(first) + 1} маленького кубика до строя № {col + 1}', degrees(m, 0, h))
+        print(f'Чтобы доехать от {blocks[1].index(first) + 1} башни (маленький кубик) до столбца # {col + 1} '
+              f'поварачиваемся на {degrees(m, 0, h)}')
 
-        motor(degrees(m, 0, h))
 
         if m + degrees(m, 0, h) < 0:
             m += degrees(m, 0, h)+360
@@ -81,8 +74,9 @@ for col in range(3):
             h = 6
         elif col+1 == 3:
             h = 7
-        print(f'расстояние от {h} позиции до {big + 1} большого кубика', degrees(m, 0, big + 1))
-        motor(degrees(m, 0, big + 1))
+            #от {col+1} столбца
+        print(f'Чтобы доехать до {big + 1} башни (большой кубик) поворачиваемся на '
+              f'{degrees(m, 0, big + 1)}')
 
         if m + degrees(m, 0, big + 1) < 0:
             m += degrees(m, 0, big + 1) + 360
@@ -91,9 +85,8 @@ for col in range(3):
         else:
             m += degrees(m, 0, big + 1)
 
-        print(f'все перемещение от большого кубика {big + 1} до строя # {col + 1}', degrees(m, 0, h))
+        print(f'Чтобы доехать от {big + 1} большого кубика до столбца # {col + 1} поворачиваемся на', degrees(m, 0, h))
 
-        motor(degrees(m, 0, h))
 
         if m + degrees(m, 0, h) < 0:
             m += degrees(m, 0, h)+360
@@ -114,8 +107,8 @@ for col in range(3):
                         tmp = i
         if blocks[1][tmp] == '':
             algo.append(f'{big + 1} small from blocks to blocks # {tmp + 1}')
-            print(f'расстояние от предыдущей позиции до {big + 1} маленького кубика {degrees(m, 0, big + 1)}')
-            motor(degrees(m, 0, big + 1))
+
+            print(f'Чтобы доехать до {big + 1} башни (маленький кубик) поворачиваемся на {degrees(m, 0, big + 1)}')
             if m + degrees(m, 0, big + 1) < 0:
                 m += degrees(m, 0, big + 1) + 360
             elif m + degrees(m, 0, big + 1) > 360:
@@ -123,9 +116,9 @@ for col in range(3):
             else:
                 m += degrees(m, 0, big + 1)
 
-            print(f'все перемещение от маленького кубика {big + 1} до другой колоды # {tmp + 1}', degrees(m, 0, tmp + 1))
+            print(f'Чтобы доехать от {big + 1} башни (маленький кубик) до башни # {tmp + 1} поворачиваемся на',
+                  degrees(m, 0, tmp + 1))
 
-            motor(degrees(m, 0, tmp + 1))
 
             if m + degrees(m, 0, tmp + 1) < 0:
                 m += degrees(m, 0, tmp + 1) + 360
@@ -138,18 +131,17 @@ for col in range(3):
             blocks[1][big] = ''
         else:
             algo.append(f'{big + 1} small from blocks to blocks # {tmp + 1}')
-            print(f'расстояние от предыдущей позиции до {big + 1} маленького кубика {degrees(m, 0, big + 1)}')
+            print(f'Чтобы доехать до {big + 1} башни (маленький кубик) поворачиваемся на {degrees(m, 0, big + 1)}')
 
-            motor(degrees(m, 0, big + 1))
             if m + degrees(m, 0, big + 1) < 0:
                 m += degrees(m, 0, big + 1) + 360
             elif m + degrees(m, 0, big + 1) > 360:
                 m += degrees(m, 0, big + 1) - 360
             else:
                 m += degrees(m, 0, big + 1)
-            print(f'расстояние от {big + 1} маленького до такого же в другой позиции номер # {tmp + 1} {degrees(m, 0, tmp + 1)}')
+            print(f'Чтобы доехать от {big + 1} башни (маленький кубик) до башни # {tmp + 1} поворачиваемся на '
+                  f'{degrees(m, 0, tmp + 1)}')
 
-            motor(degrees(m, 0, tmp + 1))
 
             if m + degrees(m, 0, tmp + 1) < 0:
                 m += degrees(m, 0, tmp + 1) + 360
@@ -167,9 +159,8 @@ for col in range(3):
             h = 6
         elif col+1 == 3:
             h = 7
-        print(f'{big + 1} большой кубик в строй под номером # {col + 1}', degrees(m, 0, big + 1))
+        print(f'Чтобы доехать до {big + 1} башни (большой кубик) поворачиваемся на {degrees(m, 0, big + 1)}')
 
-        motor(degrees(m, 0, big + 1))
         if m + degrees(m, 0, big + 1) < 0:
             m += degrees(m, 0, big + 1)+360
         elif m + degrees(m, 0, big + 1) > 360:
@@ -177,9 +168,9 @@ for col in range(3):
         else:
             m += degrees(m, 0, big + 1)
 
-        print(f'расстояние от {big + 1} большого кубика в строй до строя под номером # {col + 1}', degrees(m, 0, h))
+        print(f'Чтобы доехать от {big + 1} башни (большой кубик) до столбца # {col + 1} поворачиваемся '
+              f'на {degrees(m, 0, h)}')
 
-        motor(degrees(m, 0, h))
 
         if m + degrees(m, 0, h) < 0:
             m += degrees(m, 0, h)+360
@@ -198,9 +189,9 @@ for col in range(3):
                 h = 6
             elif col + 1 == 3:
                 h = 7
-            print(f'{blocks[1].index(second) + 1} маленький кубик(сколько до него ехать) {degrees(m, 0, blocks[1].index(second) + 1)}')
+            print(f'Чтобы доехать до {blocks[1].index(second) + 1} башни (маленький кубик) поворачиваемся на'
+                  f' {degrees(m, 0, blocks[1].index(second) + 1)}')
 
-            motor(degrees(m, 0, blocks[1].index(second) + 1))
             if m + degrees(m, 0, blocks[1].index(second) + 1) < 0:
                 m += degrees(m, 0, blocks[1].index(second) + 1) + 360
             elif m + degrees(m, 0, blocks[1].index(second) + 1) > 360:
@@ -208,9 +199,9 @@ for col in range(3):
             else:
                 m += degrees(m, 0, blocks[1].index(second) + 1)
 
-            print(f'расстояние от {blocks[1].index(second) + 1} маленького кубика до строя под номером # {col + 1} {degrees(m, 0, h)}')
+            print(f'Чтобы доехать от {blocks[1].index(second) + 1} башни (маленький кубик) до столбца # {col + 1} '
+                  f'поворачиваемся на {degrees(m, 0, h)}')
 
-            motor(degrees(m, 0, h))
 
             if m + degrees(m, 0, h) < 0:
                 m += degrees(m, 0, h)+360
@@ -228,9 +219,9 @@ for col in range(3):
             elif col + 1 == 3:
                 h = 7
 
-            print(f'{blocks[2].index(second) + 1} маленький кубик(сколько до него ехать) {degrees(m, 0, blocks[2].index(second) + 1)}')
+            print(f'Чтобы доехать до {blocks[2].index(second) + 1} башни (маленький кубик)'
+                  f' поворачиваемся на {degrees(m, 0, blocks[2].index(second) + 1)}')
 
-            motor(degrees(m, 0, blocks[2].index(second) + 1))
             if m + degrees(m, 0, blocks[2].index(second) + 1) < 0:
                 m += degrees(m, 0, blocks[1].index(second) + 1) + 360
             elif m + degrees(m, 0, blocks[2].index(second) + 1) > 360:
@@ -238,9 +229,9 @@ for col in range(3):
             else:
                 m += degrees(m, 0, blocks[2].index(second) + 1)
 
-            print(f'расстояние от {blocks[2].index(second) + 1} маленького кубика до строя под номером # {col + 1} {degrees(m, 0, h)}')
+            print(f'Чтобы доехать от {blocks[2].index(second) + 1} башни (маленький кубик) до столбца # '
+                  f'{col + 1} поворачиваемся на {degrees(m, 0, h)}')
 
-            motor(degrees(m, 0, h))
 
             if m + degrees(m, 0, h) < 0:
                 m += degrees(m, 0, h)+360
@@ -262,9 +253,8 @@ for col in range(3):
         elif col + 1 == 3:
             h = 7
 
-        print(f'{mid + 1} большой кубик(сколько до него ехать) {degrees(m, 0, mid + 1)}')
+        print(f'Чтобы доехать до {mid + 1} башни (большой кубик) поворачиваемся на {degrees(m, 0, mid + 1)}')
 
-        motor(degrees(m, 0, mid + 1))
         if m + degrees(m, 0, mid + 1) < 0:
             m += degrees(m, 0, mid + 1) + 360
         elif m + degrees(m, 0, mid + 1) > 360:
@@ -272,9 +262,8 @@ for col in range(3):
         else:
             m += degrees(m, 0, mid + 1)
 
-        print(f'расстояние от {mid + 1} большого кубика до строя под номером # {col + 1} {degrees(m, 0, h)}')
+        print(f'Чтобы доехать от {mid + 1} большого кубика до столбца # {col + 1} поворачиваемся на{degrees(m, 0, h)}')
 
-        motor(degrees(m, 0, h))
 
         if m + degrees(m, 0, h) < 0:
             m += degrees(m, 0, h) + 360
@@ -292,9 +281,8 @@ for col in range(3):
                         tmp = i
                         break
         algo.append(f'{mid + 1} small from blocks to blocks # {tmp + 1}')
-        print(f'{mid + 1} маленький из колоды в колоду номер(сколько ехать до {mid + 1} маленького кубика) # {tmp + 1} {degrees(m, 0, mid + 1)}')
+        print(f'Чтобы доехать до {mid + 1} башни (маленький кубик) поворачиваемся на {degrees(m, 0, mid + 1)}')
 
-        motor(degrees(m, 0, mid + 1))
 
         if m + degrees(m, 0, mid + 1) < 0:
             m += degrees(m, 0, mid + 1) + 360
@@ -303,9 +291,9 @@ for col in range(3):
         else:
             m += degrees(m, 0, mid + 1)
 
-        print(f'расстояние от {mid + 1} маленького кубика из колоды до колоды номер № {tmp + 1} {degrees(m, 0, tmp + 1)}')
+        print(f'Чтобы доехать от {mid + 1} башни (маленький кубик) до башни # {tmp + 1} '
+              f'поворачиваемся на {degrees(m, 0, tmp + 1)}')
 
-        motor(degrees(m, 0, tmp + 1))
 
         if m + degrees(m, 0, tmp + 1) < 0:
             m += degrees(m, 0, tmp + 1) + 360
@@ -328,9 +316,8 @@ for col in range(3):
         elif col + 1 == 3:
             h = 7
 
-        print(f'{mid + 1} большой кубик(сколько до него ехать) {degrees(m, 0, mid + 1)}')
+        print(f'Чтобы доехаать до {mid + 1} башни (большой кубик) поворачиваемся на {degrees(m, 0, mid + 1)}')
 
-        motor(degrees(m, 0, mid + 1))
 
         if m + degrees(m, 0, mid + 1) < 0:
             m += degrees(m, 0, mid + 1) + 360
@@ -339,9 +326,9 @@ for col in range(3):
         else:
             m += degrees(m, 0, mid + 1)
 
-        print(f'расстояние от {mid + 1} большого кубика до строя под номером # {col + 1} {degrees(m, 0, h)}')
+        print(f'Чтобы доехать от {mid + 1} башни (большой кубик) до столбца # {col + 1} '
+              f'поворачиваемся на {degrees(m, 0, h)}')
 
-        motor(degrees(m, 0, h))
 
         if m + degrees(m, 0, h) < 0:
             m += degrees(m, 0, h) + 360
@@ -361,9 +348,9 @@ for col in range(3):
         elif col + 1 == 3:
             h = 7
 
-        print(f'{blocks[1].index(third) + 1} маленький кубик(сколько до него ехать) {degrees(m, 0, blocks[1].index(third) + 1)}')
+        print(f'Чтобы доехать до {blocks[1].index(third) + 1} башни (маленький кубик) поворачиваемся на'
+              f' {degrees(m, 0, blocks[1].index(third) + 1)}')
 
-        motor(degrees(m, 0, blocks[1].index(third) + 1))
         if m +  degrees(m, 0, blocks[1].index(third) + 1) < 0:
             m += degrees(m, 0, blocks[1].index(third) + 1) + 360
         elif m + degrees(m, 0, blocks[1].index(third) + 1) > 360:
@@ -371,9 +358,9 @@ for col in range(3):
         else:
             m += degrees(m, 0, blocks[1].index(third) + 1)
 
-        print(f'расстояние от {blocks[1].index(third) + 1} маленького кубика до строя под номером # {col + 1} {degrees(m, 0, h)}')
+        print(f'Чтобы доехать от {blocks[1].index(third) + 1} башни (маленький кубик) до столбца # {col + 1} '
+              f'поворачиваемся на {degrees(m, 0, h)}')
 
-        motor(degrees(m, 0, h))
 
         if m + degrees(m, 0, h) < 0:
             m += degrees(m, 0, h) + 360
@@ -391,9 +378,9 @@ for col in range(3):
         elif col + 1 == 3:
             h = 7
 
-        print(f'{blocks[2].index(third) + 1} маленький кубик(сколько до него ехать) {degrees(m, 0, blocks[2].index(third) + 1)}')
+        print(f'Чтобы доехать до {blocks[2].index(third) + 1} башни (маленький кубик) поворачиваемся на '
+              f' {degrees(m, 0, blocks[2].index(third) + 1)}')
 
-        motor(degrees(m, 0, blocks[2].index(third) + 1))
         if m + degrees(m, 0, blocks[2].index(third) + 1) < 0:
             m += degrees(m, 0, blocks[2].index(third) + 1) + 360
         elif m + degrees(m, 0, blocks[2].index(third) + 1) > 360:
@@ -401,9 +388,9 @@ for col in range(3):
         else:
             m += degrees(m, 0, blocks[2].index(third) + 1)
 
-        print(f'расстояние от {blocks[2].index(third) + 1} маленького кубика до строя под номером # {col + 1} {degrees(m, 0, h)}')
+        print(f'Чтобы доехать от {blocks[2].index(third) + 1} башни (маленький кубик) до столбца # {col + 1} '
+              f'поворачиваемся на {degrees(m, 0, h)}')
 
-        motor(degrees(m, 0, h))
 
         if m + degrees(m, 0, h) < 0:
             m += degrees(m, 0, h) + 360
