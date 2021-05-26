@@ -2,7 +2,7 @@ import math
 import RPi.GPIO as GPIO
 import time
 
-def motor(m):
+def motor(m, n):
     if m > 0:
         GPIO.output(24, True)
     else:

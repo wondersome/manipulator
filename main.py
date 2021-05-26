@@ -20,11 +20,13 @@ blocks = [['B', 'C', 'G', 'R', 'Y'],
 
 algo = []
 m = 90
+n = 0
+f = 0
 # вычисляем какой кубик следует выкинуть
 for x in blocks[1]:
     if x not in scheme[0] + scheme[1] + scheme[2]:
         algo.append(f'{blocks[1].index(x) + 1} throw from blocks')
-        print("выкидываем кубик поворачиваясь на градус", degrees(m, 0, int(blocks[1].index(x) + 1)))
+        print("выкидываем кубик поворачиваясь на градус", degrees(m, n, f, int(blocks[1].index(x) + 1)))
         motor(blocks[1].index(x) + 1)
         if m + degrees(m, 0, int(blocks[1].index(x) + 1)) < 0:
             m += degrees(m, 0, int(blocks[1].index(x) + 1))+360
@@ -48,7 +50,7 @@ for col in range(3):
             h = 7
 
         print(f'{blocks[1].index(first) + 1} маленький кубик перемещаем из колоды в строй под номером # {col + 1}',
-              degrees(m, 0, blocks[1].index(first) + 1))
+              degrees(m, n, f, blocks[1].index(first) + 1))
         motor(blocks[1].index(first) + 1)
 
         if m + degrees(m, 0, blocks[1].index(first) + 1) < 0:
@@ -58,9 +60,9 @@ for col in range(3):
         else:
             m += degrees(m, 0, blocks[1].index(first) + 1)
 
-        print(f'все перемещение от {blocks[1].index(first) + 1} маленького кубика до строя № {col + 1}', degrees(m, 0, h))
+        print(f'все перемещение от {blocks[1].index(first) + 1} маленького кубика до строя № {col + 1}', degrees(m, n, f, h))
 
-        motor(degrees(m, 0, h))
+        motor(degrees(m, h))
 
         if m + degrees(m, 0, h) < 0:
             m += degrees(m, 0, h)+360

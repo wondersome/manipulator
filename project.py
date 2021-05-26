@@ -1,76 +1,84 @@
-
-def degrees(m, n, k):
+# a = m; b = n; c = f
+def degrees(m, n, f, k):
     if k == 5:
         if 210 > m >= 30:
-            return round(64.45 - m, 2)
+            return round(65.2 - m, 1), round(-n-73.8,1), round(-f+38.6,1)
+
         else:
             if 0 <= m < 30:
-                return round(-4.45 - m, 2)
+                return round(-5.2 - m, 1), round(-n + 73.8, 1), round(-f - 38.6, 1)
             else:
-                return round(355.55 - m, 2)
+                return round(354.8 - m, 1), round(-n + 73.8, 1), round(-f - 38.6, 1)
+
+
     if k == 4:
         if 240 > m >= 60:
-            return round(94.45 - m, 2)
+            return round(95.2 - m, 1), round(-n - 73.8, 1), round(-f + 38.6, 1)
         else:
             if 0 <= m < 60:
-                return round(25.55 - m, 2)
+                return round(24.8 - m, 1), round(-n + 73.8, 1), round(-f - 38.6, 1)
             else:
-                if m >= 240:
-                    return round(385.55 - m, 2)
+                return round(384.8 - m, 1), round(-n + 73.8, 1), round(-f - 38.6, 1)
+
+
     if k == 3:
         if 270 > m >= 90:
-            return round(124.45 - m, 2)
+            return round(125.2 - m, 1), round(-n - 73.8, 1), round(-f + 38.6, 1)
         else:
             if 0 <= m < 90:
-                return round(55.55 - m, 2)
+                return round(54.8 - m, 1), round(-n + 73.8, 1), round(-f - 38.6, 1)
             else:
-                if m >= 270:
-                    return round(415.55 - m, 2)
+                return round(414.8 - m, 1), round(-n + 73.8, 1), round(-f - 38.6, 1)
+
+
     if k == 2:
-        if 300 > m >= 120:
-            return round(154.45 - m, 2)
+        if 300 >= m >= 120:
+            return round(155.2 - m, 1), round(-n - 73.8, 1), round(-f + 38.6, 1)
         else:
-            if 0 <= m < 120:
-                return round(85.55 - m, 2)
+            if 0 <= m <= 120:
+                return round(84.8 - m, 1), round(-n + 73.8, 1), round(-f - 38.6, 1)
             else:
-                if m >= 300:
-                    return round(445.55 - m, 2)
+                return round(444.8 - m, 1), round(-n + 73.8, 1), round(-f - 38.6, 1)
+
+
     if k == 1:
         if 330 > m >= 150:
-            return round(184.45 - m, 2)
-        else:
-            if 0 <= m < 150:
-                return round(115.55 - m, 2)
-            else:
-                if m >= 330:
-                    return round(475.55 - m, 2)
-    if k == 6:
-        if 270 > m >= 90:
-            return round(235.55 - m, 2)
+            return round(185.2 - m, 1), round(-n - 73.8, 1), round(-f + 38.6, 1)
         else:
             if 0 <= m < 90:
-                return round(-55.55 - m, 2)
+                return round(84.8 - m, 1), round(-n + 73.8, 1), round(-f - 38.6, 1)
             else:
-                if m >= 270:
-                    return round(304.45 - m, 2)
+                return round(444.8 - m, 1), round(-n + 73.8, 1), round(-f - 38.6, 1)
+
+
+    if k == 6:
+        if 270 > m >= 90:
+            return round(234.8 - m, 1), round(-n + 73.8, 1), round(-f - 38.6, 1)
+        else:
+            if 0 <= m < 90:
+                return round(-54.8 - m, 1), round(-n - 73.8, 1), round(-f + 38.6, 1)
+            else:
+                return round(305.2 - m, 1), round(-n - 73.8, 1), round(-f + 38.6, 1)
+
+
     if k == 7:
         if 243.4349 > m >= 63.4349:
-            return round(218.6849 - m, 2)
+            return round(217.9349 - m, 2), round(-n + 53.2, 1), round(-f - 1.1349, 1)
         else:
             if 0 <= m < 63.4349:
-                return round(-91.8151 - m, 2)
+                return round(-91.0651 - m, 2), round(-n - 53.2, 1), round(-f - 53.2, 1)
             else:
-                if m >= 243.4349:
-                    return round(268.1849 - m, 2)
+                return round(268.9349 - m, 2), round(-n - 53.2, 1), round(-f - 53.2, 1)
+
     if k == 8:
         if 296.5651 > m >= 116.5651:
-            return round(271.8151 - m, 2)
+            return round(271.0651 - m, 2), round(-n + 53.2, 1), round(-f - 54.2651, 1)
         else:
             if 0 <= m < 116.5651:
-                return round(-38.6849 - m, 2)
+                return round(-37.9349 - m, 2), round(-n - 53.2, 1), round(-f + 1.1349, 1)
             else:
-                if m >= 296.5651:
-                    return round(321.3151 - m, 2)
+                return round(322.0651 - m, 2), round(-n - 53.2, 1), round(-f + 1.1349, 1)
 
 
-print(degrees(21.1, 0, 8))
+
+print(degrees(90, 0, 0, 2))
