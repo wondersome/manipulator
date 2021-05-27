@@ -4,7 +4,8 @@ import math
 
 from pprint import pprint
 from project import degrees
-
+import math
+from height import height
 scheme = [['R', 'C', 'y'],
           ['G', 'b', ''],
           ['Y', 'c', '']]
@@ -12,17 +13,21 @@ scheme = [['R', 'C', 'y'],
 blocks = [['B', 'C', 'G', 'R', 'Y'],
           ['y', 'r', 'c', 'g', 'b'],
           ['', '', '', '', '']]
+col_1 = int(blocks[0][0] != '') + int(blocks[1][0] != '') + int(blocks[2][0] != '')
 
 algo = []
 m = 90
 n = 0
 f = 0
+v = 15
 # вычисляем какой кубик следует выкинуть
 for x in blocks[1]:
     if x not in scheme[0] + scheme[1] + scheme[2]:
         algo.append(f'{blocks[1].index(x) + 1} throw from blocks')
         print(f'выкидываем кубик {blocks[1].index(x) + 1} поворачиваясь на градус",'
-              f' {degrees(m, n, f, blocks[1].index(x) + 1)[0]}, {degrees(m, n, f, blocks[1].index(x) + 1)[1]}, {degrees(m, n, f, blocks[1].index(x) + 1)[2]}')
+              f' {degrees(m, n, f, blocks[1].index(x) + 1)[0]}, '
+              f'{degrees(m, n, f, blocks[1].index(x) + 1)[1]}, '
+              f'{degrees(m, n, f, blocks[1].index(x) + 1)[2]}, {height(1, 1)}')
         if m + degrees(m, n, f, blocks[1].index(x) + 1)[0] < 0:
             m += degrees(m, n, f, blocks[1].index(x) + 1)[0]+360
         elif m + degrees(m, n, f, blocks[1].index(x) + 1)[0] > 360:
@@ -36,7 +41,7 @@ for x in blocks[1]:
 
 for col in range(3):
     first, second, third = scheme[col]
-    # Если на схеме в ряду только 1 кубик, то ищем среди маленьких кубиков кубик нужного цвета
+
     if second == '':
         algo.append(f'{blocks[1].index(first) + 1} small from blocks to column # {col + 1}')
         if col+1 == 1:
@@ -47,7 +52,9 @@ for col in range(3):
             h = 7
 
         print(f'Чтобы доехать до {blocks[1].index(first) + 1} башни (маленький кубик) поворачивааемся на '
-              f'{degrees(m, n, f, blocks[1].index(first) + 1)[0]}, {degrees(m, n, f, blocks[1].index(first) + 1)[1]}, {degrees(m, n, f, blocks[1].index(first) + 1)[2]}')
+              f'{degrees(m, n, f, blocks[1].index(first) + 1)[0]}, '
+              f'{degrees(m, n, f, blocks[1].index(first) + 1)[1]}, '
+              f'{degrees(m, n, f, blocks[1].index(first) + 1)[2]}', height(0, 1))
 
         if m + degrees(m, n, f, blocks[1].index(first) + 1)[0] < 0:
             m += degrees(m, n, f, blocks[1].index(first) + 1)[0] + 360
@@ -58,8 +65,10 @@ for col in range(3):
         n += degrees(m, n, f, blocks[1].index(first) + 1)[1]
         f += degrees(m, n, f, blocks[1].index(first) + 1)[2]
 
+        y = len(scheme[col]) - 1
+
         print(f'Чтобы доехать от {blocks[1].index(first) + 1} башни (маленький кубик) до столбца # {col + 1} '
-              f'поварачиваемся на {degrees(m, n, f, h)[0]}, {degrees(m, n, f, h)[1]}, {degrees(m, n, f, h)[2]}')
+              f'поварачиваемся на {degrees(m, n, f, h)[0]}, {degrees(m, n, f, h)[1]}, {degrees(m, n, f, h)[2]}, {height(y, 0)}')
 
 
         if m + degrees(m, n, f, h)[0] < 0:
@@ -85,7 +94,7 @@ for col in range(3):
             h = 7
             #от {col+1} столбца
         print(f'Чтобы доехать до {big + 1} башни (большой кубик) поворачиваемся на '
-              f'{degrees(m, n, f, big + 1)[0]}, {degrees(m, n, f, big + 1)[1]}, {degrees(m, n, f, big + 1)[2]}')
+              f'{degrees(m, n, f, big + 1)[0]}, {degrees(m, n, f, big + 1)[1]}, {degrees(m, n, f, big + 1)[2]}, {height(1, 0)}')
 
         if m + degrees(m, n, f, big + 1)[0] < 0:
             m += degrees(m, n, f, big + 1)[0] + 360
@@ -96,8 +105,15 @@ for col in range(3):
         n += degrees(m, n, f, big + 1)[1]
         f += degrees(m, n, f, big + 1)[2]
 
+        if blocks[0][big].isupper():
+            b += 1
+        elif blocks[0][big].islower():
+            s += 1
+
+        v = len(scheme[col]) - 2
         print(f'Чтобы доехать от {big + 1} большого кубика до столбца # {col + 1} поворачиваемся на {degrees(m, n, f, h)[0]},'
-              f'{degrees(m, n, f, h)[1]}, {degrees(m, n, f, h)[2]}')
+              f'{degrees(m, n, f, h)[1]}, {degrees(m, n, f, h)[2]}, {height(v, 0)}')
+
 
 
         if m + degrees(m, n, f, h)[0] < 0:
