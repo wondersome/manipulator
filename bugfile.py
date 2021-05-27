@@ -1,9 +1,9 @@
-from project import degrees
+from degrees import degrees
 import time
 import math
 
 from pprint import pprint
-from project import degrees
+from degrees import degrees
 import math
 from height import height
 scheme = [['R', 'C', 'y'],
@@ -13,7 +13,6 @@ scheme = [['R', 'C', 'y'],
 blocks = [['B', 'C', 'G', 'R', 'Y'],
           ['y', 'r', 'c', 'g', 'b'],
           ['', '', '', '', '']]
-col_1 = int(blocks[0][0] != '') + int(blocks[1][0] != '') + int(blocks[2][0] != '')
 
 algo = []
 m = 90
@@ -65,7 +64,6 @@ for col in range(3):
         n += degrees(m, n, f, blocks[1].index(first) + 1)[1]
         f += degrees(m, n, f, blocks[1].index(first) + 1)[2]
 
-        y = len(scheme[col]) - 1
 
         print(f'Чтобы доехать от {blocks[1].index(first) + 1} башни (маленький кубик) до столбца # {col + 1} '
               f'поварачиваемся на {degrees(m, n, f, h)[0]}, {degrees(m, n, f, h)[1]}, {degrees(m, n, f, h)[2]}, {height(y, 0)}')
@@ -105,10 +103,7 @@ for col in range(3):
         n += degrees(m, n, f, big + 1)[1]
         f += degrees(m, n, f, big + 1)[2]
 
-        if blocks[0][big].isupper():
-            b += 1
-        elif blocks[0][big].islower():
-            s += 1
+
 
         v = len(scheme[col]) - 2
         print(f'Чтобы доехать от {big + 1} большого кубика до столбца # {col + 1} поворачиваемся на {degrees(m, n, f, h)[0]},'
