@@ -7,9 +7,9 @@ def motor(m, n):
 
 
     if m == 1:
-        dir = 18
-        step = 17
-        coef = 0.65
+        dir = 23
+        step = 24
+        coef = 1.17
     elif m == 2:
         dir = 20
         step = 21
@@ -24,34 +24,37 @@ def motor(m, n):
         step = 17
         coef = 0.9
         n = -n
-    GPIO.setwarnings(False)
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(dir, GPIO.OUT)
-    GPIO.setup(step, GPIO.OUT)
-    if n < 0:
-        GPIO.output(dir, False)
-        n = math.fabs(n)
-    else:
-        GPIO.output(dir, True)
-    i = int(0)
-    first = int(n/coef)
-    while i < first:
-        GPIO.output(step, True)
-        time.sleep(0.02)
-        GPIO.output(step, False)
-        time.sleep(0.02)
-        i = i + 1
-
-    if m == 4:
-        GPIO.output(dir, True)
+    if m == 1 or m == 2:
+        GPIO.setwarnings(False)
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(dir, GPIO.OUT)
+        GPIO.setup(step, GPIO.OUT)
+        if n < 0:
+            GPIO.output(dir, False)
+            n = math.fabs(n)
+        else:
+            GPIO.output(dir, True)
         i = int(0)
+        first = int(n/coef)
         while i < first:
             GPIO.output(step, True)
             time.sleep(0.02)
             GPIO.output(step, False)
             time.sleep(0.02)
             i = i + 1
-   
+    
+        if m == 4:
+            GPIO.output(dir, True)
+            i = int(0)
+            while i < first:
+                GPIO.output(step, True)
+                time.sleep(0.02)
+                GPIO.output(step, False)
+                time.sleep(0.02)
+                i = i + 1
+        GPIO.cleanup()
+        time.sleep(2)    
+    
+    # 4 мотор - высота
 
 
-# 4 мотор - высота

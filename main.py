@@ -2,18 +2,6 @@ from degrees import degrees
 from pprint import pprint
 from height import height
 from motors import motor
-import RPi.GPIO as GPIO
-import time
-import math
-
-
-
-GPIO.setwarnings(False)
-
-time.sleep(5)
-print("--")
-    
-
 global m
 global n
 global f
@@ -21,15 +9,6 @@ m = 90
 n = 0
 f = 0
 
-def addition(value):
-    if m + degrees(m, n, f, value)[0] < 0:
-        m += degrees(m, n, f, value)[0] + 360
-    elif m + degrees(m, n, f, value)[0] > 360:
-        m += degrees(m, n, f, value)[0] - 360
-    else:
-        m += degrees(m, n, f, value)[0]
-    n += degrees(m, n, f, blocks[1].index(x) + 1)[1]
-    f += degrees(m, n, f, blocks[1].index(x) + 1)[2]
 
 def qnum(value):
     q = 0
@@ -72,11 +51,7 @@ blocks = [['Y', 'R', 'B', 'G', 'C'],
           ['', '', '', '', '']]
 algo = []
 made = [[], [], []]
-
-
-
-
-
+count = 0
 
 # вычисляем какой кубик следует выкинуть
 for x in blocks[1]:
@@ -86,6 +61,8 @@ for x in blocks[1]:
               f' {degrees(m, n, f, blocks[1].index(x) + 1)[0]}, '
               f'{degrees(m, n, f, blocks[1].index(x) + 1)[1]}, '
               f'{degrees(m, n, f, blocks[1].index(x) + 1)[2]}, {height(1, 1)}')
+
+        count += degrees(m, n, f, blocks[1].index(x) + 1)[0]
 
         motor(1, degrees(m, n, f, blocks[1].index(x) + 1)[0])
         motor(2, degrees(m, n, f, blocks[1].index(x) + 1)[1])
@@ -119,6 +96,9 @@ for col in range(3):
               f'{degrees(m, n, f, blocks[1].index(first) + 1)[1]}, '
               f'{degrees(m, n, f, blocks[1].index(first) + 1)[2]}, '
               f'{cnum(blocks[1].index(first))}')
+
+        count += degrees(m, n, f, blocks[1].index(first) + 1)[0]
+
         motor(1, degrees(m, n, f, blocks[1].index(first) + 1)[0])
         motor(2, degrees(m, n, f, blocks[1].index(first) + 1)[1])
         motor(3, degrees(m, n, f, blocks[1].index(first) + 1)[2])
@@ -141,6 +121,9 @@ for col in range(3):
               f'{degrees(m, n, f, h)[1]}, '
               f'{degrees(m, n, f, h)[2]}, '
               f' {qnum(col)}')
+
+        count += degrees(m, n, f, h)[0]
+
         motor(1, degrees(m, n, f, h)[0])
         motor(2, degrees(m, n, f, h)[1])
         motor(3, degrees(m, n, f, h)[2])
@@ -173,6 +156,9 @@ for col in range(3):
               f'{degrees(m, n, f, big + 1)[1]}, '
               f'{degrees(m, n, f, big + 1)[2]}, '
               f'{cnum(big)}')
+
+        count += degrees(m, n, f, big + 1)[0]
+
         motor(1, degrees(m, n, f, big + 1)[0])
         motor(2, degrees(m, n, f, big + 1)[1])
         motor(3, degrees(m, n, f, big + 1)[2])
@@ -194,6 +180,9 @@ for col in range(3):
               f'{degrees(m, n, f, h)[1]}, '
               f'{degrees(m, n, f, h)[2]}, '
               f'{qnum(col)}')
+
+        count += degrees(m, n, f, h)[0]
+
         motor(1, degrees(m, n, f, h)[0])
         motor(2, degrees(m, n, f, h)[1])
         motor(3, degrees(m, n, f, h)[2])
@@ -225,6 +214,54 @@ for col in range(3):
         if blocks[1][tmp] == '': # если сверху(только один кубик есть) нет кубика то перемещаем
             cnum(big)
             algo.append(f'{big + 1} small from blocks to blocks # {tmp + 1}')
+
+            print(f'Чтобы доехать до {big + 1} башни (маленький кубик) поворачиваемся на '
+                  f'{degrees(m, n, f, big + 1)[0]}, '
+                  f'{degrees(m, n, f, big + 1)[1]}, '
+                  f'{degrees(m, n, f, big + 1)[2]}, '
+                  f'{cnum(big)}')
+
+            count += degrees(m, n, f, big + 1)[0]
+
+            motor(1, degrees(m, n, f, big + 1)[0])
+            motor(2, degrees(m, n, f, big + 1)[1])
+            motor(3, degrees(m, n, f, big + 1)[2])
+            motor(4, cnum(big))
+
+            if m + degrees(m, n, f, big + 1)[0] < 0:
+                m += degrees(m, n, f, big + 1)[0] + 360
+            elif m + degrees(m, n, f, big + 1)[0] > 360:
+                m += degrees(m, n, f, big + 1)[0] - 360
+            else:
+                m += degrees(m, n, f, big + 1)[0]
+            n += degrees(m, n, f, big + 1)[1]
+            f += degrees(m, n, f, big + 1)[2]
+
+            made[col].append(blocks[0][big])
+
+            print(f'Чтобы доехать от {big + 1} маленького кубика до кубика # {tmp + 1} поворачиваемся на '
+                  f'{degrees(m, n, f, tmp + 1)[0]}, '
+                  f'{degrees(m, n, f, tmp + 1)[1]}, '
+                  f'{degrees(m, n, f, tmp + 1)[2]}, '
+                  f'{cnum(tmp)}')
+
+            count += degrees(m, n, f, tmp + 1)[0]
+
+            motor(1, degrees(m, n, f, tmp + 1)[0])
+            motor(2, degrees(m, n, f, tmp + 1)[1])
+            motor(3, degrees(m, n, f, tmp + 1)[2])
+            motor(4, qnum(col))
+
+            if m + degrees(m, n, f, tmp + 1)[0] < 0:
+                m += degrees(m, n, f, tmp + 1)[0] + 360
+            elif m + degrees(m, n, f, tmp + 1)[0] > 360:
+                m += degrees(m, n, f, tmp + 1)[0] - 360
+            else:
+                m += degrees(m, n, f, tmp + 1)[0]
+            n += degrees(m, n, f, tmp + 1)[1]
+            f += degrees(m, n, f, tmp + 1)[2]
+
+
             blocks[1][tmp] = blocks[1][big]
             blocks[1][big] = ''
             cnum(tmp)
@@ -237,6 +274,8 @@ for col in range(3):
                 f'{degrees(m, n, f, big + 1)[1]}, '
                 f'{degrees(m, n, f, big + 1)[2]}, '
                 f'{cnum(big)}')
+
+            count += degrees(m, n, f, big + 1)[0]
 
             motor(1, degrees(m, n, f, big + 1)[0])
             motor(2, degrees(m, n, f, big + 1)[1])
@@ -260,6 +299,8 @@ for col in range(3):
                   f'{degrees(m, n, f, tmp + 1)[2]}, '
                   f'{cnum(tmp)}')
 
+            count += degrees(m, n, f, tmp + 1)[0]
+
             motor(1, degrees(m, n, f, tmp + 1)[0])
             motor(2, degrees(m, n, f, tmp + 1)[1])
             motor(3, degrees(m, n, f, tmp + 1)[2])
@@ -278,11 +319,21 @@ for col in range(3):
             blocks[1][big] = ''
 
         algo.append(f'{big + 1} big from blocks to column # {col + 1}')# после того как расчистили все сверху, всегда 1 большой кубик
+
+        if col + 1 == 1:
+            h = 8
+        elif col + 1 == 2:
+            h = 6
+        elif col + 1 == 3:
+            h = 7
+
         print(f'Чтобы доехать до {big + 1} башни (маленький кубик) поворачиваемся на '
               f'{degrees(m, n, f, big + 1)[0]}, '
               f'{degrees(m, n, f, big + 1)[1]}, '
               f'{degrees(m, n, f, big + 1)[2]}, '
               f'{cnum(big)}')
+
+        count += degrees(m, n, f, big + 1)[0]
 
         motor(1, degrees(m, n, f, big + 1)[0])
         motor(2, degrees(m, n, f, big + 1)[1])
@@ -298,25 +349,27 @@ for col in range(3):
         n += degrees(m, n, f, big + 1)[1]
         f += degrees(m, n, f, big + 1)[2]
 
-        print(f'Чтобы доехать от {big + 1} башни (маленький кубик) до столбца # {tmp + 1} поворачиваемся на '
-              f'{degrees(m, n, f, tmp + 1)[0]}, '
-              f'{degrees(m, n, f, tmp + 1)[1]}, '
-              f'{degrees(m, n, f, tmp + 1)[2]}, '
+        print(f'Чтобы доехать от {big + 1} башни (маленький кубик) до столбца # {col + 1} поворачиваемся на '
+              f'{degrees(m, n, f, h)[0]}, '
+              f'{degrees(m, n, f, h)[1]}, '
+              f'{degrees(m, n, f, h)[2]}, '
               f'{qnum(tmp)}')
 
-        motor(1, degrees(m, n, f, tmp + 1)[0])
-        motor(2, degrees(m, n, f, tmp + 1)[1])
-        motor(3, degrees(m, n, f, tmp + 1)[2])
-        motor(4, cnum(tmp))
+        count += degrees(m, n, f, h)[0]
 
-        if m + degrees(m, n, f, tmp + 1)[0] < 0:
-            m += degrees(m, n, f, tmp + 1)[0] + 360
-        elif m + degrees(m, n, f, tmp + 1)[0] > 360:
-            m += degrees(m, n, f, tmp + 1)[0] - 360
+        motor(1, degrees(m, n, f, h)[0])
+        motor(2, degrees(m, n, f, h)[1])
+        motor(3, degrees(m, n, f, h)[2])
+        motor(4, qnum(col))
+
+        if m + degrees(m, n, f, h)[0] < 0:
+            m += degrees(m, n, f, h)[0] + 360
+        elif m + degrees(m, n, f, h)[0] > 360:
+            m += degrees(m, n, f, h)[0] - 360
         else:
-            m += degrees(m, n, f, tmp + 1)[0]
-        n += degrees(m, n, f, tmp + 1)[1]
-        f += degrees(m, n, f, tmp + 1)[2]
+            m += degrees(m, n, f, h)[0]
+        n += degrees(m, n, f, h)[1]
+        f += degrees(m, n, f, h)[2]
 
         blocks[0][big] = ''
 
@@ -334,6 +387,9 @@ for col in range(3):
                   f'{degrees(m, n, f, blocks[1].index(second) + 1)[1]}, '
                   f'{degrees(m, n, f, blocks[1].index(second) + 1)[2]}, '
                   f'{cnum(blocks[1].index(second))}')
+
+            count += degrees(m, n, f, blocks[1].index(second) + 1)[0]
+
             motor(1, degrees(m, n, f, blocks[1].index(second) + 1)[0])
             motor(2, degrees(m, n, f, blocks[1].index(second) + 1)[1])
             motor(3, degrees(m, n, f, blocks[1].index(second) + 1)[2])
@@ -356,6 +412,8 @@ for col in range(3):
                   f'{degrees(m, n, f, h)[1]}, '
                   f'{degrees(m, n, f, h)[2]}, '
                   f'{qnum(col)}')
+
+            count += degrees(m, n, f, h)[0]
 
             motor(1, degrees(m, n, f, h)[0])
             motor(2, degrees(m, n, f, h)[1])
@@ -390,6 +448,8 @@ for col in range(3):
                   f'{degrees(m, n, f, blocks[2].index(second) + 1)[2]}, '
                   f'{cnum(blocks[2].index(second))}')
 
+            count += degrees(m, n, f, blocks[2].index(second) + 1)[0]
+
             motor(1, degrees(m, n, f, blocks[2].index(second) + 1)[0])
             motor(2, degrees(m, n, f, blocks[2].index(second) + 1)[1])
             motor(3, degrees(m, n, f, blocks[2].index(second) + 1)[2])
@@ -413,6 +473,9 @@ for col in range(3):
                   f'{degrees(m, n, f, h)[1]}, '
                   f'{degrees(m, n, f, h)[2]}, '
                   f'{qnum(col)}')
+
+            count += degrees(m, n, f, h)[0]
+
             motor(1, degrees(m, n, f, h)[0])
             motor(2, degrees(m, n, f, h)[1])
             motor(3, degrees(m, n, f, h)[2])
@@ -448,6 +511,9 @@ for col in range(3):
               f'{degrees(m, n, f, mid + 1)[1]}, '
               f'{degrees(m, n, f, mid + 1)[2]}, '
               f'{cnum(mid)}')
+
+        count += degrees(m, n, f, mid + 1)[0]
+
         motor(1, degrees(m, n, f, mid + 1)[0])
         motor(2, degrees(m, n, f, mid + 1)[1])
         motor(3, degrees(m, n, f, mid + 1)[2])
@@ -468,6 +534,9 @@ for col in range(3):
               f'{degrees(m, n, f, h)[1]}, '
               f'{degrees(m, n, f, h)[2]}, '
               f'{qnum(col)}')
+
+        count += degrees(m, n, f, h)[0]
+
         motor(1, degrees(m, n, f, h)[0])
         motor(2, degrees(m, n, f, h)[1])
         motor(3, degrees(m, n, f, h)[2])
@@ -501,6 +570,8 @@ for col in range(3):
               f'{degrees(m, n, f, mid + 1)[2]}, '
               f'{cnum(mid)}')
 
+        count += degrees(m, n, f, mid + 1)[0]
+
         motor(1, degrees(m, n, f, mid + 1)[0])
         motor(2, degrees(m, n, f, mid + 1)[1])
         motor(3, degrees(m, n, f, mid + 1)[2])
@@ -521,6 +592,9 @@ for col in range(3):
               f'{degrees(m, n, f, tmp + 1)[1]}, '
               f'{degrees(m, n, f, tmp + 1)[2]}, '
               f'{cnum(tmp)}')
+
+        count += degrees(m, n, f, tmp + 1)[0]
+
         motor(1, degrees(m, n, f, tmp + 1)[0])
         motor(2, degrees(m, n, f, tmp + 1)[1])
         motor(3, degrees(m, n, f, tmp + 1)[2])
@@ -554,6 +628,9 @@ for col in range(3):
               f'{degrees(m, n, f, mid + 1)[1]}, '
               f'{degrees(m, n, f, mid + 1)[2]}, '
               f'{cnum(mid)}')
+
+        count += degrees(m, n, f, mid + 1)[0]
+
         motor(1, degrees(m, n, f, mid + 1)[0])
         motor(2, degrees(m, n, f, mid + 1)[1])
         motor(3, degrees(m, n, f, mid + 1)[2])
@@ -578,6 +655,8 @@ for col in range(3):
               f'{degrees(m, n, f, h)[1]}, '
               f'{degrees(m, n, f, h)[2]}, '
               f'{qnum(col)}')
+
+        count += degrees(m, n, f, h)[0]
 
         motor(1, degrees(m, n, f, h)[0])
         motor(2, degrees(m, n, f, h)[1])
@@ -614,6 +693,8 @@ for col in range(3):
               f' {degrees(m, n, f, blocks[1].index(third) + 1)[2]}, '
               f'{cnum(blocks[1].index(third))}')
 
+        count += degrees(m, n, f, blocks[1].index(third) + 1)[0]
+
         motor(1, degrees(m, n, f, blocks[1].index(third) + 1)[0])
         motor(2, degrees(m, n, f, blocks[1].index(third) + 1)[1])
         motor(3, degrees(m, n, f, blocks[1].index(third) + 1)[2])
@@ -637,6 +718,9 @@ for col in range(3):
               f'{degrees(m, n, f, h)[1]}, '
               f'{degrees(m, n, f, h)[2]}, '
               f'{qnum(col)}')
+
+        count += degrees(m, n, f, h)[0]
+
         motor(1, degrees(m, n, f, h)[0])
         motor(2, degrees(m, n, f, h)[1])
         motor(3,degrees(m, n, f, h)[2])
@@ -671,6 +755,8 @@ for col in range(3):
               f'{degrees(m, n, f, blocks[2].index(third) + 1)[2]}, '
               f'{cnum(blocks[2].index(third))}')
 
+        count += degrees(m, n, f, blocks[2].index(third) + 1)[0]
+
         motor(1, degrees(m, n, f, blocks[2].index(third) + 1)[0])
         motor(2, degrees(m, n, f, blocks[2].index(third) + 1)[1])
         motor(3, degrees(m, n, f, blocks[2].index(third) + 1)[2])
@@ -694,6 +780,9 @@ for col in range(3):
               f'{degrees(m, n, f, h)[1]}, '
               f'{degrees(m, n, f, h)[2]}, '
               f'{qnum(col)}')
+
+        count += degrees(m, n, f, h)[0]
+
         motor(1, degrees(m, n, f, h)[0])
         motor(2, degrees(m, n, f, h)[1])
         motor(3, degrees(m, n, f, h)[2])
@@ -714,3 +803,4 @@ for col in range(3):
 
 pprint(algo)
 pprint(made)
+
