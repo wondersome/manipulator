@@ -2,6 +2,18 @@ from degrees import degrees
 from pprint import pprint
 from height import height
 from motors import motor
+import RPi.GPIO as GPIO
+import time
+import math
+
+
+
+GPIO.setwarnings(False)
+
+time.sleep(5)
+print("--")
+    
+
 global m
 global n
 global f
@@ -60,6 +72,7 @@ blocks = [['Y', 'R', 'B', 'G', 'C'],
           ['', '', '', '', '']]
 algo = []
 made = [[], [], []]
+
 
 
 

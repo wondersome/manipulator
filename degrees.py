@@ -80,5 +80,3 @@ def degrees(m, n, f, k):
                 return round(322.0651 - m, 2), round(-n - 53.2, 1), round(-f + 1.1349, 1)
 
 
-
-print(degrees(90, 0, 0, 2))
