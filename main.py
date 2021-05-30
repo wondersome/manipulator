@@ -1,3 +1,6 @@
+#!  /usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from degrees import degrees
 from pprint import pprint
 from height import height
@@ -52,6 +55,9 @@ blocks = [['Y', 'R', 'B', 'G', 'C'],
 algo = []
 made = [[], [], []]
 count = 0
+a=0
+b=0
+c=0
 
 # вычисляем какой кубик следует выкинуть
 for x in blocks[1]:
@@ -64,19 +70,19 @@ for x in blocks[1]:
 
         count += degrees(m, n, f, blocks[1].index(x) + 1)[0]
 
-        motor(1, degrees(m, n, f, blocks[1].index(x) + 1)[0])
-        motor(2, degrees(m, n, f, blocks[1].index(x) + 1)[1])
-        motor(3, degrees(m, n, f, blocks[1].index(x) + 1)[2])
+        a=motor(1, degrees(m, n, f, blocks[1].index(x) + 1)[0])
+        b=motor(2, degrees(m, n, f, blocks[1].index(x) + 1)[1])
+        c=motor(3, degrees(m, n, f, blocks[1].index(x) + 1)[2])
         motor(4, height(1, 1))
 
-        if m + degrees(m, n, f, blocks[1].index(x) + 1)[0] < 0:
-            m += degrees(m, n, f, blocks[1].index(x) + 1)[0]+360
-        elif m + degrees(m, n, f, blocks[1].index(x) + 1)[0] > 360:
-            m += degrees(m, n, f, blocks[1].index(x) + 1)[0]-360
+        if m + a < 0:
+            m += a+360
+        elif m + a > 360:
+            m += a-360
         else:
-            m += degrees(m, n, f, blocks[1].index(x) + 1)[0]
-        n += degrees(m, n, f, blocks[1].index(x) + 1)[1]
-        f += degrees(m, n, f, blocks[1].index(x) + 1)[2]
+            m += a
+        n += b
+        f += c
         blocks[1][blocks[1].index(x)] = ''
 
 
@@ -99,20 +105,20 @@ for col in range(3):
 
         count += degrees(m, n, f, blocks[1].index(first) + 1)[0]
 
-        motor(1, degrees(m, n, f, blocks[1].index(first) + 1)[0])
-        motor(2, degrees(m, n, f, blocks[1].index(first) + 1)[1])
-        motor(3, degrees(m, n, f, blocks[1].index(first) + 1)[2])
+        a=motor(1, degrees(m, n, f, blocks[1].index(first) + 1)[0])
+        b=motor(2, degrees(m, n, f, blocks[1].index(first) + 1)[1])
+        c=motor(3, degrees(m, n, f, blocks[1].index(first) + 1)[2])
         motor(4, cnum(blocks[1].index(first)))
 
 
-        if m + degrees(m, n, f, blocks[1].index(first) + 1)[0] < 0:
-            m += degrees(m, n, f, blocks[1].index(first) + 1)[0] + 360
-        elif m + degrees(m, n, f, blocks[1].index(first) + 1)[0] > 360:
-            m += degrees(m, n, f, blocks[1].index(first) + 1)[0] - 360
+        if m + a < 0:
+            m += a + 360
+        elif m + a > 360:
+            m += a - 360
         else:
-            m += degrees(m, n, f, blocks[1].index(first) + 1)[0]
-        n += degrees(m, n, f, blocks[1].index(first) + 1)[1]
-        f += degrees(m, n, f, blocks[1].index(first) + 1)[2]
+            m += a
+        n += b
+        f += c
         made[col].append(blocks[1][blocks[1].index(first)])
 
         print(f'Чтобы доехать от {blocks[1].index(first) + 1} башни (маленький кубик) до столбца # {col + 1} '
@@ -124,19 +130,19 @@ for col in range(3):
 
         count += degrees(m, n, f, h)[0]
 
-        motor(1, degrees(m, n, f, h)[0])
-        motor(2, degrees(m, n, f, h)[1])
-        motor(3, degrees(m, n, f, h)[2])
+        a=motor(1, degrees(m, n, f, h)[0])
+        b=motor(2, degrees(m, n, f, h)[1])
+        c=motor(3, degrees(m, n, f, h)[2])
         motor(4, qnum(col))
 
-        if m + degrees(m, n, f, h)[0] < 0:
-            m += degrees(m, n, f, h)[0] + 360
-        elif m + degrees(m, n, f, h)[0] > 360:
-            m += degrees(m, n, f, h)[0] - 360
+        if m + a < 0:
+            m += a + 360
+        elif m + a > 360:
+            m += a - 360
         else:
-            m += degrees(m, n, f, h)[0]
-        n += degrees(m, n, f, h)[1]
-        f += degrees(m, n, f, h)[2]
+            m += a
+        n += b
+        f += c
         blocks[1][blocks[1].index(first)] = ''  # удаляем перемещенный элемент
         continue
 
@@ -159,19 +165,19 @@ for col in range(3):
 
         count += degrees(m, n, f, big + 1)[0]
 
-        motor(1, degrees(m, n, f, big + 1)[0])
-        motor(2, degrees(m, n, f, big + 1)[1])
-        motor(3, degrees(m, n, f, big + 1)[2])
+        a=motor(1, degrees(m, n, f, big + 1)[0])
+        b=motor(2, degrees(m, n, f, big + 1)[1])
+        c=motor(3, degrees(m, n, f, big + 1)[2])
         motor(4, cnum(big))
 
-        if m + degrees(m, n, f, big + 1)[0] < 0:
-            m += degrees(m, n, f, big + 1)[0] + 360
-        elif m + degrees(m, n, f, big + 1)[0] > 360:
-            m += degrees(m, n, f, big + 1)[0] - 360
+        if m + a < 0:
+            m += a + 360
+        elif m + a > 360:
+            m += a - 360
         else:
-            m += degrees(m, n, f, big + 1)[0]
-        n += degrees(m, n, f, big + 1)[1]
-        f += degrees(m, n, f, big + 1)[2]
+            m += a
+        n += b
+        f += c
 
         made[col].append(blocks[0][big])
 
@@ -183,21 +189,21 @@ for col in range(3):
 
         count += degrees(m, n, f, h)[0]
 
-        motor(1, degrees(m, n, f, h)[0])
-        motor(2, degrees(m, n, f, h)[1])
-        motor(3, degrees(m, n, f, h)[2])
+        a=motor(1, degrees(m, n, f, h)[0])
+        b=motor(2, degrees(m, n, f, h)[1])
+        c=motor(3, degrees(m, n, f, h)[2])
         motor(4, qnum(col))
 
 
 
-        if m + degrees(m, n, f, h)[0] < 0:
-            m += degrees(m, n, f, h)[0]+360
-        elif m + degrees(m, n, f, h)[0] > 360:
-            m += degrees(m, n, f, h)[0]-360
+        if m + a < 0:
+            m += a+360
+        elif m + a > 360:
+            m += a-360
         else:
-            m += degrees(m, n, f, h)[0]
-        n += degrees(m, n, f, h)[1]
-        f += degrees(m, n, f, h)[2]
+            m += a
+        n += b
+        f += c
 
         blocks[0][big] == ''
 
@@ -223,19 +229,19 @@ for col in range(3):
 
             count += degrees(m, n, f, big + 1)[0]
 
-            motor(1, degrees(m, n, f, big + 1)[0])
-            motor(2, degrees(m, n, f, big + 1)[1])
-            motor(3, degrees(m, n, f, big + 1)[2])
+            a=motor(1, degrees(m, n, f, big + 1)[0])
+            b=motor(2, degrees(m, n, f, big + 1)[1])
+            c=motor(3, degrees(m, n, f, big + 1)[2])
             motor(4, cnum(big))
 
-            if m + degrees(m, n, f, big + 1)[0] < 0:
-                m += degrees(m, n, f, big + 1)[0] + 360
-            elif m + degrees(m, n, f, big + 1)[0] > 360:
-                m += degrees(m, n, f, big + 1)[0] - 360
+            if m + a < 0:
+                m += a + 360
+            elif m + a > 360:
+                m += a - 360
             else:
-                m += degrees(m, n, f, big + 1)[0]
-            n += degrees(m, n, f, big + 1)[1]
-            f += degrees(m, n, f, big + 1)[2]
+                m += a
+            n += b
+            f += c
 
             made[col].append(blocks[0][big])
 
@@ -247,19 +253,19 @@ for col in range(3):
 
             count += degrees(m, n, f, tmp + 1)[0]
 
-            motor(1, degrees(m, n, f, tmp + 1)[0])
-            motor(2, degrees(m, n, f, tmp + 1)[1])
-            motor(3, degrees(m, n, f, tmp + 1)[2])
+            a=motor(1, degrees(m, n, f, tmp + 1)[0])
+            b=motor(2, degrees(m, n, f, tmp + 1)[1])
+            c=motor(3, degrees(m, n, f, tmp + 1)[2])
             motor(4, qnum(col))
 
-            if m + degrees(m, n, f, tmp + 1)[0] < 0:
-                m += degrees(m, n, f, tmp + 1)[0] + 360
-            elif m + degrees(m, n, f, tmp + 1)[0] > 360:
-                m += degrees(m, n, f, tmp + 1)[0] - 360
+            if m + a < 0:
+                m += a + 360
+            elif m + a > 360:
+                m += a - 360
             else:
-                m += degrees(m, n, f, tmp + 1)[0]
-            n += degrees(m, n, f, tmp + 1)[1]
-            f += degrees(m, n, f, tmp + 1)[2]
+                m += a
+            n += b
+            f += c
 
 
             blocks[1][tmp] = blocks[1][big]
@@ -277,19 +283,19 @@ for col in range(3):
 
             count += degrees(m, n, f, big + 1)[0]
 
-            motor(1, degrees(m, n, f, big + 1)[0])
-            motor(2, degrees(m, n, f, big + 1)[1])
-            motor(3, degrees(m, n, f, big + 1)[2])
+            a=motor(1, degrees(m, n, f, big + 1)[0])
+            b=motor(2, degrees(m, n, f, big + 1)[1])
+            c=motor(3, degrees(m, n, f, big + 1)[2])
             motor(4, cnum(big))
 
-            if m + degrees(m, n, f, big + 1)[0] < 0:
-                m += degrees(m, n, f, big + 1)[0] + 360
-            elif m + degrees(m, n, f, big + 1)[0] > 360:
-                m += degrees(m, n, f, big + 1)[0] - 360
+            if m + a < 0:
+                m += a + 360
+            elif m + a > 360:
+                m += a - 360
             else:
-                m += degrees(m, n, f, big + 1)[0]
-            n += degrees(m, n, f, big + 1)[1]
-            f += degrees(m, n, f, big + 1)[2]
+                m +=a
+            n += b
+            f += c
 
             made[col].append(blocks[0][big])
 
@@ -301,19 +307,19 @@ for col in range(3):
 
             count += degrees(m, n, f, tmp + 1)[0]
 
-            motor(1, degrees(m, n, f, tmp + 1)[0])
-            motor(2, degrees(m, n, f, tmp + 1)[1])
-            motor(3, degrees(m, n, f, tmp + 1)[2])
+            a=motor(1, degrees(m, n, f, tmp + 1)[0])
+            b=motor(2, degrees(m, n, f, tmp + 1)[1])
+            c=motor(3, degrees(m, n, f, tmp + 1)[2])
             motor(4, cnum(tmp))
 
-            if m + degrees(m, n, f, tmp + 1)[0] < 0:
-                m += degrees(m, n, f, tmp + 1)[0] + 360
-            elif m + degrees(m, n, f, tmp + 1)[0] > 360:
-                m += degrees(m, n, f, tmp + 1)[0] - 360
+            if m + a < 0:
+                m += a + 360
+            elif m + a > 360:
+                m +=a - 360
             else:
-                m += degrees(m, n, f, tmp + 1)[0]
-            n += degrees(m, n, f, tmp + 1)[1]
-            f += degrees(m, n, f, tmp + 1)[2]
+                m += a
+            n += b
+            f += c
 
             blocks[2][tmp] = blocks[1][big]
             blocks[1][big] = ''
@@ -335,19 +341,19 @@ for col in range(3):
 
         count += degrees(m, n, f, big + 1)[0]
 
-        motor(1, degrees(m, n, f, big + 1)[0])
-        motor(2, degrees(m, n, f, big + 1)[1])
-        motor(3, degrees(m, n, f, big + 1)[2])
+        a=motor(1, degrees(m, n, f, big + 1)[0])
+        b=motor(2, degrees(m, n, f, big + 1)[1])
+        c=motor(3, degrees(m, n, f, big + 1)[2])
         motor(4, cnum(big))
 
-        if m + degrees(m, n, f, big + 1)[0] < 0:
-            m += degrees(m, n, f, big + 1)[0] + 360
-        elif m + degrees(m, n, f, big + 1)[0] > 360:
-            m += degrees(m, n, f, big + 1)[0] - 360
+        if m + a < 0:
+            m += a + 360
+        elif m + a > 360:
+            m += a - 360
         else:
-            m += degrees(m, n, f, big + 1)[0]
-        n += degrees(m, n, f, big + 1)[1]
-        f += degrees(m, n, f, big + 1)[2]
+            m += a
+        n += b
+        f += c
 
         print(f'Чтобы доехать от {big + 1} башни (маленький кубик) до столбца # {col + 1} поворачиваемся на '
               f'{degrees(m, n, f, h)[0]}, '
@@ -357,19 +363,19 @@ for col in range(3):
 
         count += degrees(m, n, f, h)[0]
 
-        motor(1, degrees(m, n, f, h)[0])
-        motor(2, degrees(m, n, f, h)[1])
-        motor(3, degrees(m, n, f, h)[2])
+        a=motor(1, degrees(m, n, f, h)[0])
+        b=motor(2, degrees(m, n, f, h)[1])
+        c=motor(3, degrees(m, n, f, h)[2])
         motor(4, qnum(col))
 
-        if m + degrees(m, n, f, h)[0] < 0:
-            m += degrees(m, n, f, h)[0] + 360
-        elif m + degrees(m, n, f, h)[0] > 360:
-            m += degrees(m, n, f, h)[0] - 360
+        if m + a < 0:
+            m += a + 360
+        elif m + a > 360:
+            m +=a - 360
         else:
-            m += degrees(m, n, f, h)[0]
-        n += degrees(m, n, f, h)[1]
-        f += degrees(m, n, f, h)[2]
+            m += a
+        n += b
+        f += c
 
         blocks[0][big] = ''
 
@@ -390,19 +396,19 @@ for col in range(3):
 
             count += degrees(m, n, f, blocks[1].index(second) + 1)[0]
 
-            motor(1, degrees(m, n, f, blocks[1].index(second) + 1)[0])
-            motor(2, degrees(m, n, f, blocks[1].index(second) + 1)[1])
-            motor(3, degrees(m, n, f, blocks[1].index(second) + 1)[2])
+            a=motor(1, degrees(m, n, f, blocks[1].index(second) + 1)[0])
+            b=motor(2, degrees(m, n, f, blocks[1].index(second) + 1)[1])
+            c=motor(3, degrees(m, n, f, blocks[1].index(second) + 1)[2])
             motor(4, cnum(blocks[1].index(second)))
 
-            if m + degrees(m, n, f, blocks[1].index(second) + 1)[0] < 0:
-                m += degrees(m, n, f, blocks[1].index(second) + 1)[0] + 360
-            elif m + degrees(m, n, f, blocks[1].index(second) + 1)[0] > 360:
-                m += degrees(m, n, f, blocks[1].index(second) + 1)[0] - 360
+            if m + a < 0:
+                m +=a + 360
+            elif m + a > 360:
+                m += a - 360
             else:
-                m += degrees(m, n, f, blocks[1].index(second) + 1)[0]
-            n += degrees(m, n, f, blocks[1].index(second) + 1)[1]
-            f += degrees(m, n, f, blocks[1].index(second) + 1)[2]
+                m += a
+            n += b
+            f += c
 
             made[col].append(blocks[1][blocks[1].index(second)])
 
@@ -415,20 +421,20 @@ for col in range(3):
 
             count += degrees(m, n, f, h)[0]
 
-            motor(1, degrees(m, n, f, h)[0])
-            motor(2, degrees(m, n, f, h)[1])
-            motor(3, degrees(m, n, f, h)[2])
+            a=motor(1, degrees(m, n, f, h)[0])
+            b=motor(2, degrees(m, n, f, h)[1])
+            c=motor(3, degrees(m, n, f, h)[2])
             motor(4, qnum(col))
 
 
-            if m + degrees(m, n, f, h)[0] < 0:
-                m += degrees(m, n, f, h)[0] + 360
-            elif m + degrees(m, n, f, h)[0] > 360:
-                m += degrees(m, n, f, h)[0]-360
+            if m + a < 0:
+                m += a + 360
+            elif m + a > 360:
+                m += a-360
             else:
-                m += degrees(m, n, f, h)[0]
-            n += degrees(m, n, f, h)[1]
-            f += degrees(m, n, f, h)[2]
+                m += a
+            n += b
+            f += c
 
             blocks[1][blocks[1].index(second)] = ''
 
@@ -450,19 +456,19 @@ for col in range(3):
 
             count += degrees(m, n, f, blocks[2].index(second) + 1)[0]
 
-            motor(1, degrees(m, n, f, blocks[2].index(second) + 1)[0])
-            motor(2, degrees(m, n, f, blocks[2].index(second) + 1)[1])
-            motor(3, degrees(m, n, f, blocks[2].index(second) + 1)[2])
+            a=motor(1, degrees(m, n, f, blocks[2].index(second) + 1)[0])
+            b=motor(2, degrees(m, n, f, blocks[2].index(second) + 1)[1])
+            c=motor(3, degrees(m, n, f, blocks[2].index(second) + 1)[2])
             motor(4, cnum(blocks[2].index(second)))
 
-            if m + degrees(m, n, f, blocks[2].index(second) + 1)[0] < 0:
-                m += degrees(m, n, f, blocks[2].index(second) + 1)[0] + 360
-            elif m + degrees(m, n, f, blocks[2].index(second) + 1)[0] > 360:
-                m += degrees(m, n, f, blocks[2].index(second) + 1)[0] - 360
+            if m + a < 0:
+                m += a + 360
+            elif m + a > 360:
+                m += a - 360
             else:
-                m += degrees(m, n, f, blocks[2].index(second) + 1)[0]
-            n += degrees(m, n, f, blocks[2].index(second) + 1)[1]
-            f += degrees(m, n, f, blocks[2].index(second) + 1)[2]
+                m += a
+            n += b
+            f += c
 
             made[col].append(blocks[2][blocks[2].index(second)])
 
@@ -476,20 +482,20 @@ for col in range(3):
 
             count += degrees(m, n, f, h)[0]
 
-            motor(1, degrees(m, n, f, h)[0])
-            motor(2, degrees(m, n, f, h)[1])
-            motor(3, degrees(m, n, f, h)[2])
+            a=motor(1, degrees(m, n, f, h)[0])
+            b=motor(2, degrees(m, n, f, h)[1])
+            c=motor(3, degrees(m, n, f, h)[2])
             motor(4, qnum(col))
 
 
-            if m + degrees(m, n, f, h)[0] < 0:
-                m += degrees(m, n, f, h)[0]+360
-            elif m + degrees(m, n, f, h)[0] > 360:
-                m += degrees(m, n, f, h)[0]-360
+            if m + a < 0:
+                m += a+360
+            elif m + a > 360:
+                m += a-360
             else:
-                m += degrees(m, n, f, h)[0]
-            n += degrees(m, n, f, h)[1]
-            f += degrees(m, n, f, h)[2]
+                m += a
+            n += b
+            f += c
 
             blocks[2][blocks[2].index(second)] = ''
 
@@ -514,19 +520,19 @@ for col in range(3):
 
         count += degrees(m, n, f, mid + 1)[0]
 
-        motor(1, degrees(m, n, f, mid + 1)[0])
-        motor(2, degrees(m, n, f, mid + 1)[1])
-        motor(3, degrees(m, n, f, mid + 1)[2])
+        a=motor(1, degrees(m, n, f, mid + 1)[0])
+        b=motor(2, degrees(m, n, f, mid + 1)[1])
+        c=motor(3, degrees(m, n, f, mid + 1)[2])
         motor(4, cnum(mid))
 
-        if m + degrees(m, n, f, mid + 1)[0] < 0:
-            m += degrees(m, n, f, mid + 1)[0] + 360
-        elif m + degrees(m, n, f, mid + 1)[0] > 360:
-            m += degrees(m, n, f, mid + 1)[0] - 360
+        if m + a < 0:
+            m += a + 360
+        elif m + a > 360:
+            m += a - 360
         else:
-            m += degrees(m, n, f, mid + 1)[0]
-        n += degrees(m, n, f, mid + 1)[1]
-        f += degrees(m, n, f, mid + 1)[2]
+            m += a
+        n +=b
+        f += c
         made[col].append(blocks[0][mid])
 
         print(f'Чтобы доехать от {mid + 1} большого кубика до столбца # {col + 1} поворачиваемся на '
@@ -537,20 +543,20 @@ for col in range(3):
 
         count += degrees(m, n, f, h)[0]
 
-        motor(1, degrees(m, n, f, h)[0])
-        motor(2, degrees(m, n, f, h)[1])
-        motor(3, degrees(m, n, f, h)[2])
+        a=motor(1, degrees(m, n, f, h)[0])
+        b=motor(2, degrees(m, n, f, h)[1])
+        c=motor(3, degrees(m, n, f, h)[2])
         motor(4, qnum(col))
 
 
-        if m + degrees(m, n, f, h)[0] < 0:
-            m += degrees(m, n, f, h)[0] + 360
-        elif m + degrees(m, n, f, h)[0] > 360:
-            m += degrees(m, n, f, h)[0] - 360
+        if m + a < 0:
+            m += a + 360
+        elif m +a > 360:
+            m += a - 360
         else:
-            m += degrees(m, n, f, h)[0]
-        n += degrees(m, n, f, h)[1]
-        f += degrees(m, n, f, h)[2]
+            m += a
+        n += b
+        f += c
 
         blocks[0][mid] = ''
         qnum(col)
@@ -572,19 +578,19 @@ for col in range(3):
 
         count += degrees(m, n, f, mid + 1)[0]
 
-        motor(1, degrees(m, n, f, mid + 1)[0])
-        motor(2, degrees(m, n, f, mid + 1)[1])
-        motor(3, degrees(m, n, f, mid + 1)[2])
+        a=motor(1, degrees(m, n, f, mid + 1)[0])
+        b=motor(2, degrees(m, n, f, mid + 1)[1])
+        c=motor(3, degrees(m, n, f, mid + 1)[2])
         motor(4, cnum(mid))
 
-        if m + degrees(m, n, f, mid + 1)[0] < 0:
-            m += degrees(m, n, f, mid + 1)[0] + 360
-        elif m + degrees(m, n, f, mid + 1)[0] > 360:
-            m += degrees(m, n, f, mid + 1)[0] - 360
+        if m + a < 0:
+            m += a + 360
+        elif m + a > 360:
+            m += a - 360
         else:
-            m += degrees(m, n, f, mid + 1)[0]
-        n += degrees(m, n, f, mid + 1)[1]
-        f += degrees(m, n, f, mid + 1)[2]
+            m += a
+        n += b
+        f += c
 
         print(f'Чтобы доехать от {mid + 1} башни (маленький кубик) до башни # {tmp + 1} '
               f'поворачиваемся на '
@@ -595,19 +601,19 @@ for col in range(3):
 
         count += degrees(m, n, f, tmp + 1)[0]
 
-        motor(1, degrees(m, n, f, tmp + 1)[0])
-        motor(2, degrees(m, n, f, tmp + 1)[1])
-        motor(3, degrees(m, n, f, tmp + 1)[2])
+        a=motor(1, degrees(m, n, f, tmp + 1)[0])
+        b=motor(2, degrees(m, n, f, tmp + 1)[1])
+        c=motor(3, degrees(m, n, f, tmp + 1)[2])
         motor(4, cnum(tmp))
 
-        if m + degrees(m, n, f, tmp + 1)[0] < 0:
-            m += degrees(m, n, f, tmp + 1)[0] + 360
-        elif m + degrees(m, n, f, tmp + 1)[0] > 360:
-            m += degrees(m, n, f, tmp + 1)[0] - 360
+        if m + a < 0:
+            m += a + 360
+        elif m + a > 360:
+            m += a - 360
         else:
-            m += degrees(m, n, f, tmp + 1)[0]
-        n += degrees(m, n, f, tmp + 1)[1]
-        f += degrees(m, n, f, tmp + 1)[2]
+            m +=a
+        n += b
+        f += c
 
         if blocks[1][tmp] == '':
             blocks[1][tmp] = blocks[1][mid]
@@ -631,20 +637,20 @@ for col in range(3):
 
         count += degrees(m, n, f, mid + 1)[0]
 
-        motor(1, degrees(m, n, f, mid + 1)[0])
-        motor(2, degrees(m, n, f, mid + 1)[1])
-        motor(3, degrees(m, n, f, mid + 1)[2])
+        a=motor(1, degrees(m, n, f, mid + 1)[0])
+        b=motor(2, degrees(m, n, f, mid + 1)[1])
+        c=motor(3, degrees(m, n, f, mid + 1)[2])
         motor(4, cnum(mid))
 
 
-        if m + degrees(m, n, f, mid + 1)[0] < 0:
-            m += degrees(m, n, f, mid + 1)[0] + 360
-        elif m + degrees(m, n, f, mid + 1)[0] > 360:
-            m += degrees(m, n, f, mid + 1)[0] - 360
+        if m + a < 0:
+            m += a + 360
+        elif m +a> 360:
+            m +=a - 360
         else:
-            m += degrees(m, n, f, mid + 1)[0]
-        n += degrees(m, n, f, mid + 1)[1]
-        f += degrees(m, n, f, mid + 1)[2]
+            m += a
+        n += b
+        f += c
 
         made[col].append(blocks[0][mid])
 
@@ -658,20 +664,20 @@ for col in range(3):
 
         count += degrees(m, n, f, h)[0]
 
-        motor(1, degrees(m, n, f, h)[0])
-        motor(2, degrees(m, n, f, h)[1])
-        motor(3, degrees(m, n, f, h)[2])
+        a=motor(1, degrees(m, n, f, h)[0])
+        b=motor(2, degrees(m, n, f, h)[1])
+        c=motor(3, degrees(m, n, f, h)[2])
         motor(4, qnum(col))
 
 
-        if m + degrees(m, n, f, h)[0] < 0:
-            m += degrees(m, n, f, h)[0] + 360
-        elif m + degrees(m, n, f, h)[0] > 360:
-            m += degrees(m, n, f, h)[0] - 360
+        if m + a < 0:
+            m +=a + 360
+        elif m + a > 360:
+            m += a - 360
         else:
-            m += degrees(m, n, f, h)[0]
-        n += degrees(m, n, f, h)[1]
-        f += degrees(m, n, f, h)[2]
+            m +=a
+        n += b
+        f += c
 
 
         blocks[0][mid] = ''
@@ -695,19 +701,19 @@ for col in range(3):
 
         count += degrees(m, n, f, blocks[1].index(third) + 1)[0]
 
-        motor(1, degrees(m, n, f, blocks[1].index(third) + 1)[0])
-        motor(2, degrees(m, n, f, blocks[1].index(third) + 1)[1])
-        motor(3, degrees(m, n, f, blocks[1].index(third) + 1)[2])
+        a=motor(1, degrees(m, n, f, blocks[1].index(third) + 1)[0])
+        b=motor(2, degrees(m, n, f, blocks[1].index(third) + 1)[1])
+        c=motor(3, degrees(m, n, f, blocks[1].index(third) + 1)[2])
         motor(4, cnum(blocks[1].index(third)))
 
-        if m + degrees(m, n, f, blocks[1].index(third) + 1)[0] < 0:
-            m += degrees(m, n, f, blocks[1].index(third) + 1)[0] + 360
-        elif m + degrees(m, n, f, blocks[1].index(third) + 1)[0] > 360:
-            m += degrees(m, n, f, blocks[1].index(third) + 1)[0] - 360
+        if m + a < 0:
+            m += a + 360
+        elif m + a > 360:
+            m +=a - 360
         else:
-            m += degrees(m, n, f, blocks[1].index(third) + 1)[0]
-        n += degrees(m, n, f, blocks[1].index(third) + 1)[1]
-        f += degrees(m, n, f, blocks[1].index(third) + 1)[2]
+            m += a
+        n += b
+        f += c
 
         made[col].append(blocks[1][blocks[1].index(third)])
 
@@ -721,21 +727,21 @@ for col in range(3):
 
         count += degrees(m, n, f, h)[0]
 
-        motor(1, degrees(m, n, f, h)[0])
-        motor(2, degrees(m, n, f, h)[1])
-        motor(3,degrees(m, n, f, h)[2])
+        a=motor(1, degrees(m, n, f, h)[0])
+        b=motor(2, degrees(m, n, f, h)[1])
+        c=motor(3,degrees(m, n, f, h)[2])
         motor(4, qnum(col))
 
 
-        if m + degrees(m, n, f, h)[0] < 0:
-            m += degrees(m, n, f, h)[0] + 360
-        elif m + degrees(m, n, f, h)[0] > 360:
-            m += degrees(m, n, f, h)[0] - 360
+        if m + a < 0:
+            m += a + 360
+        elif m + a > 360:
+            m += a - 360
         else:
-            m += degrees(m, n, f, h)[0]
+            m += a
 
-        n += degrees(m, n, f, h)[1]
-        f += degrees(m, n, f, h)[2]
+        n +=b
+        f +=c
         blocks[1][blocks[1].index(third)] = ''
         qnum(col)
 
@@ -757,19 +763,19 @@ for col in range(3):
 
         count += degrees(m, n, f, blocks[2].index(third) + 1)[0]
 
-        motor(1, degrees(m, n, f, blocks[2].index(third) + 1)[0])
-        motor(2, degrees(m, n, f, blocks[2].index(third) + 1)[1])
-        motor(3, degrees(m, n, f, blocks[2].index(third) + 1)[2])
+        a=motor(1, degrees(m, n, f, blocks[2].index(third) + 1)[0])
+        b=motor(2, degrees(m, n, f, blocks[2].index(third) + 1)[1])
+        c=motor(3, degrees(m, n, f, blocks[2].index(third) + 1)[2])
         motor(4, cnum(blocks[2].index(third)))
 
-        if m + degrees(m, n, f, blocks[2].index(third) + 1)[0] < 0:
-            m += degrees(m, n, f, blocks[2].index(third) + 1)[0] + 360
-        elif m + degrees(m, n, f, blocks[2].index(third) + 1)[0] > 360:
-            m += degrees(m, n, f, blocks[2].index(third) + 1)[0] - 360
+        if m + a < 0:
+            m += a + 360
+        elif m + a > 360:
+            m +=a - 360
         else:
-            m += degrees(m, n, f, blocks[2].index(third) + 1)[0]
-        n += degrees(m, n, f, blocks[2].index(third) + 1)[1]
-        f += degrees(m, n, f, blocks[2].index(third) + 1)[2]
+            m += a
+        n += b
+        f += c
 
         made[col].append(blocks[2][blocks[2].index(third)])
 
@@ -783,20 +789,20 @@ for col in range(3):
 
         count += degrees(m, n, f, h)[0]
 
-        motor(1, degrees(m, n, f, h)[0])
-        motor(2, degrees(m, n, f, h)[1])
-        motor(3, degrees(m, n, f, h)[2])
+        a=motor(1, degrees(m, n, f, h)[0])
+        b=motor(2, degrees(m, n, f, h)[1])
+        c=motor(3, degrees(m, n, f, h)[2])
         motor(4, qnum(col))
 
 
-        if m + degrees(m, n, f, h)[0] < 0:
-            m += degrees(m, n, f, h)[0] + 360
-        elif m + degrees(m, n, f, h)[0] > 360:
-            m += degrees(m, n, f, h)[0] - 360
+        if m + a < 0:
+            m += a + 360
+        elif m + a > 360:
+            m += a - 360
         else:
-            m += degrees(m, n, f, h)[0]
-        n += degrees(m, n, f, h)[1]
-        f += degrees(m, n, f, h)[2]
+            m += a
+        n += b
+        f += c
         blocks[2][blocks[2].index(third)] = ''
         qnum(col)
 

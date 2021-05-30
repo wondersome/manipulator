@@ -4,7 +4,7 @@ import time
 
 
 def motor(m, n):
-    u=int(0)
+
     k = 0
     if m == 1:
         dir = 23
@@ -33,7 +33,6 @@ def motor(m, n):
     GPIO.setup(dir, GPIO.OUT)
     GPIO.setup(step, GPIO.OUT)
     if int(n) < 0:
-        u=1
         GPIO.output(dir, False)
         n = math.fabs(n)
     else:
@@ -59,14 +58,10 @@ def motor(m, n):
     GPIO.cleanup()
     time.sleep(0.5)
     if m!=4 and m!=3:
-        if u==1 :
-            return(first*coef/16*-1)
-        else:
-            return(first*coef/16)
+	if(GPIO.output(dir)==False):
+        	return(first*coef/16*(-1))
+	else:
+		return(first*coef/16)
     else:
-        if m!=4:
-            if u==1:
-                return(first*coef/16)
-            else:
-                return(first*coef/16*(-1))
+
 
