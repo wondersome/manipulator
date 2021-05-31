@@ -3,19 +3,19 @@ import RPi.GPIO as GPIO
 import time
 
 
-def motor(m, n):
+def motor(m, n, l):
     u=int(0)
     k = 0
     if m == 1:
         dir = 23
         step = 24
         coef = 1.2
-        k = 0.0015        
+        k = 0.0012        
     elif m == 2:
         dir = 20
         step = 21
         coef = 1.8
-        k = 0.001
+        k = 0.0005
     elif m == 4:
         dir = 5
         step = 6
@@ -47,6 +47,10 @@ def motor(m, n):
         time.sleep(k)
         i = i + 1
     if m == 4:
+        if l==0:
+            print("отпускаем")
+        else:
+            print("берём")
         time.sleep(0.5)
         GPIO.output(dir, True)
         i = int(0)

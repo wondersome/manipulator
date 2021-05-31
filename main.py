@@ -11,6 +11,9 @@ global f
 m = 90
 n = 0
 f = 0
+m1 = 0
+m2 = 0
+m3 = 0
 
 
 def qnum(value):
@@ -68,20 +71,28 @@ for x in blocks[1]:
               f'{degrees(m, n, f, blocks[1].index(x) + 1)[1]}, '
               f'{degrees(m, n, f, blocks[1].index(x) + 1)[2]}, {height(1, 1)}')
 
-        count += degrees(m, n, f, blocks[1].index(x) + 1)[0]
+        m1 += degrees(m, n, f, blocks[1].index(x) + 1)[0]
+        m2 += degrees(m, n, f, blocks[1].index(x) + 1)[1]
+        m3 += degrees(m, n, f, blocks[1].index(x) + 1)[2]
+        
+        
 
         a=motor(1, degrees(m, n, f, blocks[1].index(x) + 1)[0])
         b=motor(2, degrees(m, n, f, blocks[1].index(x) + 1)[1])
         c=motor(3, degrees(m, n, f, blocks[1].index(x) + 1)[2])
         motor(4, height(1, 1))
-
+        n+=b
+        b=motor(2, 40)
+        n+=b
+        motor(h ,height(1, 1))
+        b=motor(2, -40)
+        n+=b
         if m + a < 0:
             m += a+360
         elif m + a > 360:
             m += a-360
         else:
             m += a
-        n += b
         f += c
         blocks[1][blocks[1].index(x)] = ''
 
@@ -103,7 +114,9 @@ for col in range(3):
               f'{degrees(m, n, f, blocks[1].index(first) + 1)[2]}, '
               f'{cnum(blocks[1].index(first))}')
 
-        count += degrees(m, n, f, blocks[1].index(first) + 1)[0]
+        m1 += degrees(m, n, f, blocks[1].index(first) + 1)[0]
+        m2 += degrees(m, n, f, blocks[1].index(first) + 1)[1]
+        m3 += degrees(m, n, f, blocks[1].index(first) + 1)[2]
 
         a=motor(1, degrees(m, n, f, blocks[1].index(first) + 1)[0])
         b=motor(2, degrees(m, n, f, blocks[1].index(first) + 1)[1])
@@ -128,7 +141,9 @@ for col in range(3):
               f'{degrees(m, n, f, h)[2]}, '
               f' {qnum(col)}')
 
-        count += degrees(m, n, f, h)[0]
+        m1 += degrees(m, n, f, h)[0]
+        m2 += degrees(m, n, f, h)[1]
+        m3 += degrees(m, n, f, h)[2]
 
         a=motor(1, degrees(m, n, f, h)[0])
         b=motor(2, degrees(m, n, f, h)[1])
@@ -163,7 +178,9 @@ for col in range(3):
               f'{degrees(m, n, f, big + 1)[2]}, '
               f'{cnum(big)}')
 
-        count += degrees(m, n, f, big + 1)[0]
+        m1 += degrees(m, n, f, big + 1)[0]
+        m2 += degrees(m, n, f, big + 1)[1]
+        m3 += degrees(m, n, f, big + 1)[2]
 
         a=motor(1, degrees(m, n, f, big + 1)[0])
         b=motor(2, degrees(m, n, f, big + 1)[1])
@@ -187,7 +204,9 @@ for col in range(3):
               f'{degrees(m, n, f, h)[2]}, '
               f'{qnum(col)}')
 
-        count += degrees(m, n, f, h)[0]
+        m1 += degrees(m, n, f, h)[0]
+        m2 += degrees(m, n, f, h)[1]
+        m3 += degrees(m, n, f, h)[2]
 
         a=motor(1, degrees(m, n, f, h)[0])
         b=motor(2, degrees(m, n, f, h)[1])
@@ -227,7 +246,9 @@ for col in range(3):
                   f'{degrees(m, n, f, big + 1)[2]}, '
                   f'{cnum(big)}')
 
-            count += degrees(m, n, f, big + 1)[0]
+            m1 += degrees(m, n, f, big + 1)[0]
+            m2 += degrees(m, n, f, big + 1)[1]
+            m3 += degrees(m, n, f, big + 1)[2]
 
             a=motor(1, degrees(m, n, f, big + 1)[0])
             b=motor(2, degrees(m, n, f, big + 1)[1])
@@ -251,7 +272,9 @@ for col in range(3):
                   f'{degrees(m, n, f, tmp + 1)[2]}, '
                   f'{cnum(tmp)}')
 
-            count += degrees(m, n, f, tmp + 1)[0]
+            m1 += degrees(m, n, f, tmp + 1)[0]
+            m2 += degrees(m, n, f, tmp + 1)[1]
+            m3 += degrees(m, n, f, tmp + 1)[2]
 
             a=motor(1, degrees(m, n, f, tmp + 1)[0])
             b=motor(2, degrees(m, n, f, tmp + 1)[1])
@@ -281,7 +304,9 @@ for col in range(3):
                 f'{degrees(m, n, f, big + 1)[2]}, '
                 f'{cnum(big)}')
 
-            count += degrees(m, n, f, big + 1)[0]
+            m1 += degrees(m, n, f, big + 1)[0]
+            m2 += degrees(m, n, f, big + 1)[1]
+            m3 += degrees(m, n, f, big + 1)[2]
 
             a=motor(1, degrees(m, n, f, big + 1)[0])
             b=motor(2, degrees(m, n, f, big + 1)[1])
@@ -305,7 +330,9 @@ for col in range(3):
                   f'{degrees(m, n, f, tmp + 1)[2]}, '
                   f'{cnum(tmp)}')
 
-            count += degrees(m, n, f, tmp + 1)[0]
+            m1 += degrees(m, n, f, tmp + 1)[0]
+            m2 += degrees(m, n, f, tmp + 1)[1]
+            m3 += degrees(m, n, f, tmp + 1)[2]
 
             a=motor(1, degrees(m, n, f, tmp + 1)[0])
             b=motor(2, degrees(m, n, f, tmp + 1)[1])
@@ -339,7 +366,9 @@ for col in range(3):
               f'{degrees(m, n, f, big + 1)[2]}, '
               f'{cnum(big)}')
 
-        count += degrees(m, n, f, big + 1)[0]
+        m1 += degrees(m, n, f, big + 1)[0]
+        m2 += degrees(m, n, f, big + 1)[1]
+        m3 += degrees(m, n, f, big + 1)[2]
 
         a=motor(1, degrees(m, n, f, big + 1)[0])
         b=motor(2, degrees(m, n, f, big + 1)[1])
@@ -361,7 +390,9 @@ for col in range(3):
               f'{degrees(m, n, f, h)[2]}, '
               f'{qnum(tmp)}')
 
-        count += degrees(m, n, f, h)[0]
+        m1 += degrees(m, n, f, h)[0]
+        m2 += degrees(m, n, f, h)[1]
+        m3 += degrees(m, n, f, h)[2]
 
         a=motor(1, degrees(m, n, f, h)[0])
         b=motor(2, degrees(m, n, f, h)[1])
@@ -394,7 +425,9 @@ for col in range(3):
                   f'{degrees(m, n, f, blocks[1].index(second) + 1)[2]}, '
                   f'{cnum(blocks[1].index(second))}')
 
-            count += degrees(m, n, f, blocks[1].index(second) + 1)[0]
+            m1 += degrees(m, n, f, blocks[1].index(second) + 1)[0]
+            m2 += degrees(m, n, f, blocks[1].index(second) + 1)[1]
+            m3 += degrees(m, n, f, blocks[1].index(second) + 1)[2]
 
             a=motor(1, degrees(m, n, f, blocks[1].index(second) + 1)[0])
             b=motor(2, degrees(m, n, f, blocks[1].index(second) + 1)[1])
@@ -419,7 +452,9 @@ for col in range(3):
                   f'{degrees(m, n, f, h)[2]}, '
                   f'{qnum(col)}')
 
-            count += degrees(m, n, f, h)[0]
+            m1 += degrees(m, n, f, h)[0]
+            m2 += degrees(m, n, f, h)[1]
+            m3 += degrees(m, n, f, h)[2]
 
             a=motor(1, degrees(m, n, f, h)[0])
             b=motor(2, degrees(m, n, f, h)[1])
@@ -454,7 +489,9 @@ for col in range(3):
                   f'{degrees(m, n, f, blocks[2].index(second) + 1)[2]}, '
                   f'{cnum(blocks[2].index(second))}')
 
-            count += degrees(m, n, f, blocks[2].index(second) + 1)[0]
+            m1 += degrees(m, n, f, blocks[2].index(second) + 1)[0]
+            m2 += degrees(m, n, f, blocks[2].index(second) + 1)[1]
+            m3 += degrees(m, n, f, blocks[2].index(second) + 1)[2]
 
             a=motor(1, degrees(m, n, f, blocks[2].index(second) + 1)[0])
             b=motor(2, degrees(m, n, f, blocks[2].index(second) + 1)[1])
@@ -480,7 +517,9 @@ for col in range(3):
                   f'{degrees(m, n, f, h)[2]}, '
                   f'{qnum(col)}')
 
-            count += degrees(m, n, f, h)[0]
+            m1 += degrees(m, n, f, h)[0]
+            m2 += degrees(m, n, f, h)[1]
+            m3 += degrees(m, n, f, h)[2]
 
             a=motor(1, degrees(m, n, f, h)[0])
             b=motor(2, degrees(m, n, f, h)[1])
@@ -518,7 +557,9 @@ for col in range(3):
               f'{degrees(m, n, f, mid + 1)[2]}, '
               f'{cnum(mid)}')
 
-        count += degrees(m, n, f, mid + 1)[0]
+        m1 += degrees(m, n, f, mid + 1)[0]
+        m2 += degrees(m, n, f, mid + 1)[1]
+        m3 += degrees(m, n, f, mid + 1)[2]
 
         a=motor(1, degrees(m, n, f, mid + 1)[0])
         b=motor(2, degrees(m, n, f, mid + 1)[1])
@@ -541,7 +582,9 @@ for col in range(3):
               f'{degrees(m, n, f, h)[2]}, '
               f'{qnum(col)}')
 
-        count += degrees(m, n, f, h)[0]
+        m1 += degrees(m, n, f, h)[0]
+        m2 += degrees(m, n, f, h)[1]
+        m3 += degrees(m, n, f, h)[2]
 
         a=motor(1, degrees(m, n, f, h)[0])
         b=motor(2, degrees(m, n, f, h)[1])
@@ -576,7 +619,9 @@ for col in range(3):
               f'{degrees(m, n, f, mid + 1)[2]}, '
               f'{cnum(mid)}')
 
-        count += degrees(m, n, f, mid + 1)[0]
+        m1 += degrees(m, n, f, mid + 1)[0]
+        m2 += degrees(m, n, f, mid + 1)[1]
+        m3 += degrees(m, n, f, mid + 1)[2]
 
         a=motor(1, degrees(m, n, f, mid + 1)[0])
         b=motor(2, degrees(m, n, f, mid + 1)[1])
@@ -599,7 +644,9 @@ for col in range(3):
               f'{degrees(m, n, f, tmp + 1)[2]}, '
               f'{cnum(tmp)}')
 
-        count += degrees(m, n, f, tmp + 1)[0]
+        m1 += degrees(m, n, f, tmp + 1)[0]
+        m2 += degrees(m, n, f, tmp + 1)[1]
+        m3 += degrees(m, n, f, tmp + 1)[2]
 
         a=motor(1, degrees(m, n, f, tmp + 1)[0])
         b=motor(2, degrees(m, n, f, tmp + 1)[1])
@@ -635,7 +682,11 @@ for col in range(3):
               f'{degrees(m, n, f, mid + 1)[2]}, '
               f'{cnum(mid)}')
 
-        count += degrees(m, n, f, mid + 1)[0]
+        m1 += degrees(m, n, f, mid + 1)[0]
+        m2 += degrees(m, n, f, mid + 1)[1]
+        m3 += degrees(m, n, f, mid + 1)[2]
+
+
 
         a=motor(1, degrees(m, n, f, mid + 1)[0])
         b=motor(2, degrees(m, n, f, mid + 1)[1])
@@ -662,7 +713,9 @@ for col in range(3):
               f'{degrees(m, n, f, h)[2]}, '
               f'{qnum(col)}')
 
-        count += degrees(m, n, f, h)[0]
+        m1 += degrees(m, n, f, h)[0]
+        m2 += degrees(m, n, f, h)[1]
+        m3 += degrees(m, n, f, h)[2]
 
         a=motor(1, degrees(m, n, f, h)[0])
         b=motor(2, degrees(m, n, f, h)[1])
@@ -699,7 +752,11 @@ for col in range(3):
               f' {degrees(m, n, f, blocks[1].index(third) + 1)[2]}, '
               f'{cnum(blocks[1].index(third))}')
 
-        count += degrees(m, n, f, blocks[1].index(third) + 1)[0]
+        m1 += degrees(m, n, f, blocks[1].index(third) + 1)[0]
+        m2 += degrees(m, n, f, blocks[1].index(third) + 1)[1]
+        m3 += degrees(m, n, f, blocks[1].index(third) + 1)[2]
+
+
 
         a=motor(1, degrees(m, n, f, blocks[1].index(third) + 1)[0])
         b=motor(2, degrees(m, n, f, blocks[1].index(third) + 1)[1])
@@ -725,7 +782,11 @@ for col in range(3):
               f'{degrees(m, n, f, h)[2]}, '
               f'{qnum(col)}')
 
-        count += degrees(m, n, f, h)[0]
+        m1 += degrees(m, n, f, h)[0]
+        m2 += degrees(m, n, f, h)[1]
+        m3 += degrees(m, n, f, h)[2]
+
+
 
         a=motor(1, degrees(m, n, f, h)[0])
         b=motor(2, degrees(m, n, f, h)[1])
@@ -761,7 +822,9 @@ for col in range(3):
               f'{degrees(m, n, f, blocks[2].index(third) + 1)[2]}, '
               f'{cnum(blocks[2].index(third))}')
 
-        count += degrees(m, n, f, blocks[2].index(third) + 1)[0]
+        m1 += degrees(m, n, f, blocks[2].index(third) + 1)[0]
+        m2 += degrees(m, n, f, blocks[2].index(third) + 1)[1]
+        m3 += degrees(m, n, f, blocks[2].index(third) + 1)[2]
 
         a=motor(1, degrees(m, n, f, blocks[2].index(third) + 1)[0])
         b=motor(2, degrees(m, n, f, blocks[2].index(third) + 1)[1])
@@ -787,7 +850,11 @@ for col in range(3):
               f'{degrees(m, n, f, h)[2]}, '
               f'{qnum(col)}')
 
-        count += degrees(m, n, f, h)[0]
+        m1 += degrees(m, n, f, h)[0]
+        m2 += degrees(m, n, f, h)[1]
+        m3 += degrees(m, n, f, h)[2]
+
+
 
         a=motor(1, degrees(m, n, f, h)[0])
         b=motor(2, degrees(m, n, f, h)[1])
@@ -804,9 +871,23 @@ for col in range(3):
         n += b
         f += c
         blocks[2][blocks[2].index(third)] = ''
-        qnum(col)
+#M1 M2 M3 CAN be more then 360 and less then -360. that'll break logic. how to change language?
+m1=round(m1 ,4)*-1
+m2=round(m2 ,4)*-1
+m3=round(m3 ,4)*-1
+if m1<0 :
+    if m1+360<m1*-1:
+        a=motor(1, m1+360)
+    else:
+        a=motor(1, m1*-1)
+else:
+    if m1<360-m1:
+        a=motor(1, m1)
+    else:
+        a=motor(1, m1-360)
+b=motor(2,m2)
+c=motor(3,m3)
+print(m1, m2, m3)
+        
 
-
-pprint(algo)
-pprint(made)
 
