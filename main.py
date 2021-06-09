@@ -1,13 +1,15 @@
-#!  /usr/bin/env python
-# -*- coding: utf-8 -*-
-
+from threading import Thread
 from degrees import degrees
 from pprint import pprint
 from height import height
 from motors import motor
+import RPi.GPIO as GPIO
+import time
+import math
 global m
 global n
 global f
+
 m = 90
 n = 0
 f = 0
@@ -25,7 +27,14 @@ def qnum(value):
         elif i.islower():
             w += 1
     return height(q, w)
-
+def abcs(o, f):
+    if f == 1:
+        coef = 0.075    
+    elif f == 2:
+        coef = 0.1125
+    elif f == 3:
+        coef = 0.225
+    return(round( int(o/coef),0)*coef)
 def cnum(value):
     q = 0
     w = 0
@@ -61,7 +70,11 @@ count = 0
 a=0
 b=0
 c=0
-
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(25, GPIO.IN)
+while GPIO.input(25)==0 :
+    time.sleep(0.1)
 # вычисляем какой кубик следует выкинуть
 for x in blocks[1]:
     if x not in scheme[0] + scheme[1] + scheme[2]:
@@ -76,16 +89,22 @@ for x in blocks[1]:
         m3 += degrees(m, n, f, blocks[1].index(x) + 1)[2]
         
         
-
-        a=motor(1, degrees(m, n, f, blocks[1].index(x) + 1)[0])
-        b=motor(2, degrees(m, n, f, blocks[1].index(x) + 1)[1])
-        c=motor(3, degrees(m, n, f, blocks[1].index(x) + 1)[2])
-        motor(4, height(1, 1))
+        Thread(target=motor, args=(1, degrees(m, n, f, blocks[1].index(x) + 1)[0], 0)).start()
+        Thread(target=motor, args=(2, degrees(m, n, f, blocks[1].index(x) + 1)[1], 0)).start()
+        Thread(target=motor, args=(3, degrees(m, n, f, blocks[1].index(x) + 1)[2], 0)).start()
+        a=abcs(degrees(m, n, f, blocks[1].index(x) + 1)[0], 1)
+        b=abcs(degrees(m, n, f, blocks[1].index(x) + 1)[1], 2)
+        c=abcs(degrees(m, n, f, blocks[1].index(x) + 1)[2], 3)
+        print(degrees(m, n, f, blocks[1].index(x) + 1)[1])
+        print(a, b, c)
+        motor(4, height(1, 1), 1)
         n+=b
-        b=motor(2, 40)
+        motor(2, 40,0)
+        b=abcs(40, 2)
         n+=b
-        motor(h ,height(1, 1))
-        b=motor(2, -40)
+        motor(4 ,height(1, 1), 0)
+        motor(2, -40,0)
+        b=abcs(-40, 2)
         n+=b
         if m + a < 0:
             m += a+360
@@ -118,10 +137,10 @@ for col in range(3):
         m2 += degrees(m, n, f, blocks[1].index(first) + 1)[1]
         m3 += degrees(m, n, f, blocks[1].index(first) + 1)[2]
 
-        a=motor(1, degrees(m, n, f, blocks[1].index(first) + 1)[0])
-        b=motor(2, degrees(m, n, f, blocks[1].index(first) + 1)[1])
-        c=motor(3, degrees(m, n, f, blocks[1].index(first) + 1)[2])
-        motor(4, cnum(blocks[1].index(first)))
+        a=motor(1, degrees(m, n, f, blocks[1].index(first) + 1)[0], 0)
+        b=motor(2, degrees(m, n, f, blocks[1].index(first) + 1)[1], 0)
+        c=motor(3, degrees(m, n, f, blocks[1].index(first) + 1)[2], 0)
+        motor(4, cnum(blocks[1].index(first)), 1)
 
 
         if m + a < 0:
@@ -145,10 +164,10 @@ for col in range(3):
         m2 += degrees(m, n, f, h)[1]
         m3 += degrees(m, n, f, h)[2]
 
-        a=motor(1, degrees(m, n, f, h)[0])
-        b=motor(2, degrees(m, n, f, h)[1])
-        c=motor(3, degrees(m, n, f, h)[2])
-        motor(4, qnum(col))
+        a=motor(1, degrees(m, n, f, h)[0], 0)
+        b=motor(2, degrees(m, n, f, h)[1], 0)
+        c=motor(3, degrees(m, n, f, h)[2], 0)
+        motor(4, qnum(col), 0)
 
         if m + a < 0:
             m += a + 360
@@ -182,10 +201,10 @@ for col in range(3):
         m2 += degrees(m, n, f, big + 1)[1]
         m3 += degrees(m, n, f, big + 1)[2]
 
-        a=motor(1, degrees(m, n, f, big + 1)[0])
-        b=motor(2, degrees(m, n, f, big + 1)[1])
-        c=motor(3, degrees(m, n, f, big + 1)[2])
-        motor(4, cnum(big))
+        a=motor(1, degrees(m, n, f, big + 1)[0], 0)
+        b=motor(2, degrees(m, n, f, big + 1)[1], 0)
+        c=motor(3, degrees(m, n, f, big + 1)[2], 0)
+        motor(4, cnum(big), 1)
 
         if m + a < 0:
             m += a + 360
@@ -208,10 +227,10 @@ for col in range(3):
         m2 += degrees(m, n, f, h)[1]
         m3 += degrees(m, n, f, h)[2]
 
-        a=motor(1, degrees(m, n, f, h)[0])
-        b=motor(2, degrees(m, n, f, h)[1])
-        c=motor(3, degrees(m, n, f, h)[2])
-        motor(4, qnum(col))
+        a=motor(1, degrees(m, n, f, h)[0], 0)
+        b=motor(2, degrees(m, n, f, h)[1], 0)
+        c=motor(3, degrees(m, n, f, h)[2], 0)
+        motor(4, qnum(col), 0)
 
 
 
@@ -250,10 +269,10 @@ for col in range(3):
             m2 += degrees(m, n, f, big + 1)[1]
             m3 += degrees(m, n, f, big + 1)[2]
 
-            a=motor(1, degrees(m, n, f, big + 1)[0])
-            b=motor(2, degrees(m, n, f, big + 1)[1])
-            c=motor(3, degrees(m, n, f, big + 1)[2])
-            motor(4, cnum(big))
+            a=motor(1, degrees(m, n, f, big + 1)[0], 0)
+            b=motor(2, degrees(m, n, f, big + 1)[1], 0)
+            c=motor(3, degrees(m, n, f, big + 1)[2], 0)
+            motor(4, cnum(big), 1)
 
             if m + a < 0:
                 m += a + 360
@@ -276,10 +295,10 @@ for col in range(3):
             m2 += degrees(m, n, f, tmp + 1)[1]
             m3 += degrees(m, n, f, tmp + 1)[2]
 
-            a=motor(1, degrees(m, n, f, tmp + 1)[0])
-            b=motor(2, degrees(m, n, f, tmp + 1)[1])
-            c=motor(3, degrees(m, n, f, tmp + 1)[2])
-            motor(4, qnum(col))
+            a=motor(1, degrees(m, n, f, tmp + 1)[0], 0)
+            b=motor(2, degrees(m, n, f, tmp + 1)[1], 0)
+            c=motor(3, degrees(m, n, f, tmp + 1)[2], 0)
+            motor(4, qnum(col), 0)
 
             if m + a < 0:
                 m += a + 360
@@ -308,10 +327,10 @@ for col in range(3):
             m2 += degrees(m, n, f, big + 1)[1]
             m3 += degrees(m, n, f, big + 1)[2]
 
-            a=motor(1, degrees(m, n, f, big + 1)[0])
-            b=motor(2, degrees(m, n, f, big + 1)[1])
-            c=motor(3, degrees(m, n, f, big + 1)[2])
-            motor(4, cnum(big))
+            a=motor(1, degrees(m, n, f, big + 1)[0], 0)
+            b=motor(2, degrees(m, n, f, big + 1)[1], 0)
+            c=motor(3, degrees(m, n, f, big + 1)[2], 0)
+            motor(4, cnum(big), 1)
 
             if m + a < 0:
                 m += a + 360
@@ -334,10 +353,10 @@ for col in range(3):
             m2 += degrees(m, n, f, tmp + 1)[1]
             m3 += degrees(m, n, f, tmp + 1)[2]
 
-            a=motor(1, degrees(m, n, f, tmp + 1)[0])
-            b=motor(2, degrees(m, n, f, tmp + 1)[1])
-            c=motor(3, degrees(m, n, f, tmp + 1)[2])
-            motor(4, cnum(tmp))
+            a=motor(1, degrees(m, n, f, tmp + 1)[0], 0)
+            b=motor(2, degrees(m, n, f, tmp + 1)[1], 0)
+            c=motor(3, degrees(m, n, f, tmp + 1)[2], 0)
+            motor(4, cnum(tmp), 0)
 
             if m + a < 0:
                 m += a + 360
@@ -370,10 +389,10 @@ for col in range(3):
         m2 += degrees(m, n, f, big + 1)[1]
         m3 += degrees(m, n, f, big + 1)[2]
 
-        a=motor(1, degrees(m, n, f, big + 1)[0])
-        b=motor(2, degrees(m, n, f, big + 1)[1])
-        c=motor(3, degrees(m, n, f, big + 1)[2])
-        motor(4, cnum(big))
+        a=motor(1, degrees(m, n, f, big + 1)[0], 0)
+        b=motor(2, degrees(m, n, f, big + 1)[1], 0)
+        c=motor(3, degrees(m, n, f, big + 1)[2], 0)
+        motor(4, cnum(big), 1)
 
         if m + a < 0:
             m += a + 360
@@ -394,10 +413,10 @@ for col in range(3):
         m2 += degrees(m, n, f, h)[1]
         m3 += degrees(m, n, f, h)[2]
 
-        a=motor(1, degrees(m, n, f, h)[0])
-        b=motor(2, degrees(m, n, f, h)[1])
-        c=motor(3, degrees(m, n, f, h)[2])
-        motor(4, qnum(col))
+        a=motor(1, degrees(m, n, f, h)[0], 0)
+        b=motor(2, degrees(m, n, f, h)[1], 0)
+        c=motor(3, degrees(m, n, f, h)[2], 0)
+        motor(4, qnum(col), 0)
 
         if m + a < 0:
             m += a + 360
@@ -429,10 +448,10 @@ for col in range(3):
             m2 += degrees(m, n, f, blocks[1].index(second) + 1)[1]
             m3 += degrees(m, n, f, blocks[1].index(second) + 1)[2]
 
-            a=motor(1, degrees(m, n, f, blocks[1].index(second) + 1)[0])
-            b=motor(2, degrees(m, n, f, blocks[1].index(second) + 1)[1])
-            c=motor(3, degrees(m, n, f, blocks[1].index(second) + 1)[2])
-            motor(4, cnum(blocks[1].index(second)))
+            a=motor(1, degrees(m, n, f, blocks[1].index(second) + 1)[0], 0)
+            b=motor(2, degrees(m, n, f, blocks[1].index(second) + 1)[1], 0)
+            c=motor(3, degrees(m, n, f, blocks[1].index(second) + 1)[2], 0)
+            motor(4, cnum(blocks[1].index(second)), 1)
 
             if m + a < 0:
                 m +=a + 360
@@ -456,10 +475,10 @@ for col in range(3):
             m2 += degrees(m, n, f, h)[1]
             m3 += degrees(m, n, f, h)[2]
 
-            a=motor(1, degrees(m, n, f, h)[0])
-            b=motor(2, degrees(m, n, f, h)[1])
-            c=motor(3, degrees(m, n, f, h)[2])
-            motor(4, qnum(col))
+            a=motor(1, degrees(m, n, f, h)[0], 0)
+            b=motor(2, degrees(m, n, f, h)[1], 0)
+            c=motor(3, degrees(m, n, f, h)[2], 0)
+            motor(4, qnum(col), 0)
 
 
             if m + a < 0:
@@ -493,10 +512,10 @@ for col in range(3):
             m2 += degrees(m, n, f, blocks[2].index(second) + 1)[1]
             m3 += degrees(m, n, f, blocks[2].index(second) + 1)[2]
 
-            a=motor(1, degrees(m, n, f, blocks[2].index(second) + 1)[0])
-            b=motor(2, degrees(m, n, f, blocks[2].index(second) + 1)[1])
-            c=motor(3, degrees(m, n, f, blocks[2].index(second) + 1)[2])
-            motor(4, cnum(blocks[2].index(second)))
+            a=motor(1, degrees(m, n, f, blocks[2].index(second) + 1)[0], 0)
+            b=motor(2, degrees(m, n, f, blocks[2].index(second) + 1)[1], 0)
+            c=motor(3, degrees(m, n, f, blocks[2].index(second) + 1)[2], 0)
+            motor(4, cnum(blocks[2].index(second)), 1)
 
             if m + a < 0:
                 m += a + 360
@@ -521,10 +540,10 @@ for col in range(3):
             m2 += degrees(m, n, f, h)[1]
             m3 += degrees(m, n, f, h)[2]
 
-            a=motor(1, degrees(m, n, f, h)[0])
-            b=motor(2, degrees(m, n, f, h)[1])
-            c=motor(3, degrees(m, n, f, h)[2])
-            motor(4, qnum(col))
+            a=motor(1, degrees(m, n, f, h)[0], 0)
+            b=motor(2, degrees(m, n, f, h)[1], 0)
+            c=motor(3, degrees(m, n, f, h)[2], 0)
+            motor(4, qnum(col), 0)
 
 
             if m + a < 0:
@@ -561,10 +580,10 @@ for col in range(3):
         m2 += degrees(m, n, f, mid + 1)[1]
         m3 += degrees(m, n, f, mid + 1)[2]
 
-        a=motor(1, degrees(m, n, f, mid + 1)[0])
-        b=motor(2, degrees(m, n, f, mid + 1)[1])
-        c=motor(3, degrees(m, n, f, mid + 1)[2])
-        motor(4, cnum(mid))
+        a=motor(1, degrees(m, n, f, mid + 1)[0], 0)
+        b=motor(2, degrees(m, n, f, mid + 1)[1], 0)
+        c=motor(3, degrees(m, n, f, mid + 1)[2], 0)
+        motor(4, cnum(mid), 1)
 
         if m + a < 0:
             m += a + 360
@@ -586,10 +605,10 @@ for col in range(3):
         m2 += degrees(m, n, f, h)[1]
         m3 += degrees(m, n, f, h)[2]
 
-        a=motor(1, degrees(m, n, f, h)[0])
-        b=motor(2, degrees(m, n, f, h)[1])
-        c=motor(3, degrees(m, n, f, h)[2])
-        motor(4, qnum(col))
+        a=motor(1, degrees(m, n, f, h)[0], 0)
+        b=motor(2, degrees(m, n, f, h)[1], 0)
+        c=motor(3, degrees(m, n, f, h)[2], 0)
+        motor(4, qnum(col), 0)
 
 
         if m + a < 0:
@@ -623,10 +642,10 @@ for col in range(3):
         m2 += degrees(m, n, f, mid + 1)[1]
         m3 += degrees(m, n, f, mid + 1)[2]
 
-        a=motor(1, degrees(m, n, f, mid + 1)[0])
-        b=motor(2, degrees(m, n, f, mid + 1)[1])
-        c=motor(3, degrees(m, n, f, mid + 1)[2])
-        motor(4, cnum(mid))
+        a=motor(1, degrees(m, n, f, mid + 1)[0], 0)
+        b=motor(2, degrees(m, n, f, mid + 1)[1], 0)
+        c=motor(3, degrees(m, n, f, mid + 1)[2], 0)
+        motor(4, cnum(mid), 1)
 
         if m + a < 0:
             m += a + 360
@@ -648,10 +667,10 @@ for col in range(3):
         m2 += degrees(m, n, f, tmp + 1)[1]
         m3 += degrees(m, n, f, tmp + 1)[2]
 
-        a=motor(1, degrees(m, n, f, tmp + 1)[0])
-        b=motor(2, degrees(m, n, f, tmp + 1)[1])
-        c=motor(3, degrees(m, n, f, tmp + 1)[2])
-        motor(4, cnum(tmp))
+        a=motor(1, degrees(m, n, f, tmp + 1)[0], 0)
+        b=motor(2, degrees(m, n, f, tmp + 1)[1], 0)
+        c=motor(3, degrees(m, n, f, tmp + 1)[2], 0)
+        motor(4, cnum(tmp), 0)
 
         if m + a < 0:
             m += a + 360
@@ -688,10 +707,10 @@ for col in range(3):
 
 
 
-        a=motor(1, degrees(m, n, f, mid + 1)[0])
-        b=motor(2, degrees(m, n, f, mid + 1)[1])
-        c=motor(3, degrees(m, n, f, mid + 1)[2])
-        motor(4, cnum(mid))
+        a=motor(1, degrees(m, n, f, mid + 1)[0], 0)
+        b=motor(2, degrees(m, n, f, mid + 1)[1], 0)
+        c=motor(3, degrees(m, n, f, mid + 1)[2], 0)
+        motor(4, cnum(mid), 1)
 
 
         if m + a < 0:
@@ -717,10 +736,10 @@ for col in range(3):
         m2 += degrees(m, n, f, h)[1]
         m3 += degrees(m, n, f, h)[2]
 
-        a=motor(1, degrees(m, n, f, h)[0])
-        b=motor(2, degrees(m, n, f, h)[1])
-        c=motor(3, degrees(m, n, f, h)[2])
-        motor(4, qnum(col))
+        a=motor(1, degrees(m, n, f, h)[0], 0)
+        b=motor(2, degrees(m, n, f, h)[1], 0)
+        c=motor(3, degrees(m, n, f, h)[2], 0)
+        motor(4, qnum(col), 0)
 
 
         if m + a < 0:
@@ -758,10 +777,10 @@ for col in range(3):
 
 
 
-        a=motor(1, degrees(m, n, f, blocks[1].index(third) + 1)[0])
-        b=motor(2, degrees(m, n, f, blocks[1].index(third) + 1)[1])
-        c=motor(3, degrees(m, n, f, blocks[1].index(third) + 1)[2])
-        motor(4, cnum(blocks[1].index(third)))
+        a=motor(1, degrees(m, n, f, blocks[1].index(third) + 1)[0], 0)
+        b=motor(2, degrees(m, n, f, blocks[1].index(third) + 1)[1], 0)
+        c=motor(3, degrees(m, n, f, blocks[1].index(third) + 1)[2], 0)
+        motor(4, cnum(blocks[1].index(third)), 1)
 
         if m + a < 0:
             m += a + 360
@@ -788,10 +807,10 @@ for col in range(3):
 
 
 
-        a=motor(1, degrees(m, n, f, h)[0])
-        b=motor(2, degrees(m, n, f, h)[1])
-        c=motor(3,degrees(m, n, f, h)[2])
-        motor(4, qnum(col))
+        a=motor(1, degrees(m, n, f, h)[0], 0)
+        b=motor(2, degrees(m, n, f, h)[1], 0)
+        c=motor(3,degrees(m, n, f, h)[2], 0)
+        motor(4, qnum(col), 0)
 
 
         if m + a < 0:
@@ -826,10 +845,10 @@ for col in range(3):
         m2 += degrees(m, n, f, blocks[2].index(third) + 1)[1]
         m3 += degrees(m, n, f, blocks[2].index(third) + 1)[2]
 
-        a=motor(1, degrees(m, n, f, blocks[2].index(third) + 1)[0])
-        b=motor(2, degrees(m, n, f, blocks[2].index(third) + 1)[1])
-        c=motor(3, degrees(m, n, f, blocks[2].index(third) + 1)[2])
-        motor(4, cnum(blocks[2].index(third)))
+        a=motor(1, degrees(m, n, f, blocks[2].index(third) + 1)[0], 0)
+        b=motor(2, degrees(m, n, f, blocks[2].index(third) + 1)[1], 0)
+        c=motor(3, degrees(m, n, f, blocks[2].index(third) + 1)[2], 0)
+        motor(4, cnum(blocks[2].index(third)), 1)
 
         if m + a < 0:
             m += a + 360
@@ -856,10 +875,10 @@ for col in range(3):
 
 
 
-        a=motor(1, degrees(m, n, f, h)[0])
-        b=motor(2, degrees(m, n, f, h)[1])
-        c=motor(3, degrees(m, n, f, h)[2])
-        motor(4, qnum(col))
+        a=motor(1, degrees(m, n, f, h)[0], 0)
+        b=motor(2, degrees(m, n, f, h)[1], 0)
+        c=motor(3, degrees(m, n, f, h)[2], 0)
+        motor(4, qnum(col), 0)
 
 
         if m + a < 0:
@@ -877,16 +896,16 @@ m2=round(m2 ,4)*-1
 m3=round(m3 ,4)*-1
 if m1<0 :
     if m1+360<m1*-1:
-        a=motor(1, m1+360)
+        a=motor(1, m1+360, 0)
     else:
-        a=motor(1, m1*-1)
+        a=motor(1, m1*-1, 0)
 else:
     if m1<360-m1:
-        a=motor(1, m1)
+        a=motor(1, m1, 0)
     else:
-        a=motor(1, m1-360)
-b=motor(2,m2)
-c=motor(3,m3)
+        a=motor(1, m1-360, 0)
+b=motor(2,m2, 0)
+c=motor(3,m3, 0)
 print(m1, m2, m3)
         
 

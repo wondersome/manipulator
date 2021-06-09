@@ -2,11 +2,12 @@ from height import height
 from degrees import degrees
 from motors import motor
 import time
-n=int(1)
 n=int(input())
-p=motor(1,n)
-time.sleep(1)
-print(p)
+while 1:
+    p=motor(4,n, 0)
+    time.sleep(1)
+    p=motor(4,n,0)
+    time.sleep(1)
 """
 motor(1,-3.9734)
 motor(2,71.2861)
