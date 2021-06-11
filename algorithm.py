@@ -1,6 +1,6 @@
-from degrees import degrees
+from motor_control.degrees import degrees
 from pprint import pprint
-from height import height
+from motor_control.height import height
 
 global m
 global n
