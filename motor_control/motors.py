@@ -15,7 +15,7 @@ def motor(m, n, l):
         dir = 20
         step = 21
         coef = 0.1125
-        k = 0.001
+        k = 0.002
     elif m == 4:
         dir = 5
         step = 6
@@ -26,7 +26,7 @@ def motor(m, n, l):
         dir = 18
         step = 17
         coef = 0.225
-        k = 0.00001
+        k = 0.001
         n = -n
     GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BCM)
@@ -65,6 +65,7 @@ def motor(m, n, l):
             GPIO.output(step, False)
             time.sleep(k)
             i = i + 1
+    print(change)
     change += 1
     time.sleep(0.1)
     
