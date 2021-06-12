@@ -129,9 +129,9 @@ for col in range(3):
               f'{degrees(m, n, f, blocks[1].index(first) + 1)[2]}, '
               f'{cnum(blocks[1].index(first))}')
 
-        Thread(target=motor, args=(1, degrees(m, n, f, blocks[1].index(first) + 1)[0], 0)).start()
         Thread(target=motor, args=(2, degrees(m, n, f, blocks[1].index(first) + 1)[1], 0)).start()
         Thread(target=motor, args=(3, degrees(m, n, f, blocks[1].index(first) + 1)[2], 0)).start()
+        motor(1, degrees(m, n, f, blocks[1].index(first) + 1)[0], 0)
         a=abcs(degrees(m, n, f, blocks[1].index(first) + 1)[0], 1)
         b=abcs(degrees(m, n, f, blocks[1].index(first) + 1)[1], 2)
         c=abcs(degrees(m, n, f, blocks[1].index(first) + 1)[2], 3)
@@ -157,9 +157,9 @@ for col in range(3):
 
 
 
-        Thread(target=motor, args=(1, degrees(m, n, f, h)[0], 0)).start()
         Thread(target=motor, args=(2, degrees(m, n, f, h)[1], 0)).start()
         Thread(target=motor, args=(3, degrees(m, n, f, h)[2], 0)).start()
+        motor(1, degrees(m, n, f, h)[0], 0)
         a=abcs(degrees(m, n, f, h)[0], 1)
         b=abcs(degrees(m, n, f, h)[1], 2)
         c=abcs(degrees(m, n, f, h)[2], 3)
@@ -194,9 +194,9 @@ for col in range(3):
               f'{cnum(big)}')
 
 
-        Thread(target=motor, args=(1, degrees(m, n, f, big + 1)[0], 0)).start()
         Thread(target=motor, args=(2, degrees(m, n, f, big + 1)[1], 0)).start()
         Thread(target=motor, args=(3, degrees(m, n, f, big + 1)[2], 0)).start()
+        motor(1, degrees(m, n, f, big + 1)[0], 0)
         a=abcs(degrees(m, n, f, big + 1)[0], 1)
         b=abcs(degrees(m, n, f, big + 1)[1], 2)
         c=abcs(degrees(m, n, f, big + 1)[2], 3)
@@ -219,9 +219,9 @@ for col in range(3):
               f'{degrees(m, n, f, h)[2]}, '
               f'{qnum(col)}')
 
-        Thread(target=motor, args=(1, degrees(m, n, f, h)[0], 0)).start()
         Thread(target=motor, args=(2, degrees(m, n, f, h)[1], 0)).start()
         Thread(target=motor, args=(3, degrees(m, n, f, h)[2], 0)).start()
+        motor(1, degrees(m, n, f, h)[0], 0)
         a=abcs(degrees(m, n, f, h)[0], 1)
         b=abcs(degrees(m, n, f, h)[1], 2)
         c=abcs(degrees(m, n, f, h)[2], 3)
@@ -260,9 +260,9 @@ for col in range(3):
                   f'{degrees(m, n, f, big + 1)[2]}, '
                   f'{cnum(big)}')
 
-            Thread(target=motor, args=(1, degrees(m, n, f, big + 1)[0], 0)).start()
             Thread(target=motor, args=(2, degrees(m, n, f, big + 1)[1], 0)).start()
             Thread(target=motor, args=(3, degrees(m, n, f, big + 1)[2], 0)).start()
+            motor(1, degrees(m, n, f, big + 1)[0], 0)
             a=abcs(degrees(m, n, f, big + 1)[0], 1)
             b=abcs(degrees(m, n, f, big + 1)[1], 2)
             c=abcs(degrees(m, n, f, big + 1)[2], 3)
@@ -285,9 +285,9 @@ for col in range(3):
                   f'{degrees(m, n, f, tmp + 1)[2]}, '
                   f'{cnum(tmp)}')
 
-            Thread(target=motor, args=(1, degrees(m, n, f, tmp + 1)[0], 0)).start()
             Thread(target=motor, args=(2, degrees(m, n, f, tmp + 1)[1], 0)).start()
             Thread(target=motor, args=(3, degrees(m, n, f, tmp + 1)[2], 0)).start()
+            motor(1, degrees(m, n, f, tmp + 1)[0], 0)
             a=abcs(degrees(m, n, f, tmp + 1)[0], 1)
             b=abcs(degrees(m, n, f, tmp + 1)[1], 2)
             c=abcs(degrees(m, n, f, tmp + 1)[2], 3)
@@ -317,9 +317,9 @@ for col in range(3):
                 f'{cnum(big)}')
 
 
-            Thread(target=motor, args=(1, degrees(m, n, f, big + 1)[0], 0)).start()
             Thread(target=motor, args=(2, degrees(m, n, f, big + 1)[1], 0)).start()
             Thread(target=motor, args=(3, degrees(m, n, f, big + 1)[2], 0)).start()
+            motor(1, degrees(m, n, f, big + 1)[0], 0)
             a=abcs(degrees(m, n, f, big + 1)[0], 1)
             b=abcs(degrees(m, n, f, big + 1)[1], 2)
             c=abcs(degrees(m, n, f, big + 1)[2], 3)
@@ -342,9 +342,9 @@ for col in range(3):
                   f'{degrees(m, n, f, tmp + 1)[2]}, '
                   f'{cnum(tmp)}')
 
-            Thread(target=motor, args=(1, degrees(m, n, f, tmp + 1)[0], 0)).start()
             Thread(target=motor, args=(2, degrees(m, n, f, tmp + 1)[1], 0)).start()
             Thread(target=motor, args=(3, degrees(m, n, f, tmp + 1)[2], 0)).start()
+            motor(1, degrees(m, n, f, tmp + 1)[0], 0)
             a=abcs(degrees(m, n, f, tmp + 1)[0], 1)
             b=abcs(degrees(m, n, f, tmp + 1)[1], 2)
             c=abcs(degrees(m, n, f, tmp + 1)[2], 3)
@@ -377,9 +377,9 @@ for col in range(3):
               f'{degrees(m, n, f, big + 1)[2]}, '
               f'{cnum(big)}')
 
-        Thread(target=motor, args=(1, degrees(m, n, f, big + 1)[0], 0)).start()
         Thread(target=motor, args=(2, degrees(m, n, f, big + 1)[1], 0)).start()
         Thread(target=motor, args=(3, degrees(m, n, f, big + 1)[2], 0)).start()
+        motor(1, degrees(m, n, f, big + 1)[0], 0)
         a=abcs(degrees(m, n, f, big + 1)[0], 1)
         b=abcs(degrees(m, n, f, big + 1)[1], 2)
         c=abcs(degrees(m, n, f, big + 1)[2], 3)
@@ -400,9 +400,9 @@ for col in range(3):
               f'{degrees(m, n, f, h)[2]}, '
               f'{qnum(tmp)}')
 
-        Thread(target=motor, args=(1, degrees(m, n, f, h)[0], 0)).start()
         Thread(target=motor, args=(2, degrees(m, n, f, h)[1], 0)).start()
         Thread(target=motor, args=(3, degrees(m, n, f, h)[2], 0)).start()
+        motor(1, degrees(m, n, f, h)[0], 0)
         a=abcs(degrees(m, n, f, h)[0], 1)
         b=abcs(degrees(m, n, f, h)[1], 2)
         c=abcs(degrees(m, n, f, h)[2], 3)
@@ -434,9 +434,9 @@ for col in range(3):
                   f'{degrees(m, n, f, blocks[1].index(second) + 1)[2]}, '
                   f'{cnum(blocks[1].index(second))}')
 
-            Thread(target=motor, args=(1, degrees(m, n, f, blocks[1].index(second) + 1)[0], 0)).start()
             Thread(target=motor, args=(2, degrees(m, n, f, blocks[1].index(second) + 1)[1], 0)).start()
             Thread(target=motor, args=(3, degrees(m, n, f, blocks[1].index(second) + 1)[2], 0)).start()
+            motor(1, degrees(m, n, f, blocks[1].index(second) + 1)[0], 0)
             a=abcs(degrees(m, n, f, blocks[1].index(second) + 1)[0], 1)
             b=abcs(degrees(m, n, f, blocks[1].index(second) + 1)[1], 2)
             c=abcs(degrees(m, n, f, blocks[1].index(second) + 1)[2], 3)
@@ -460,9 +460,9 @@ for col in range(3):
                   f'{degrees(m, n, f, h)[2]}, '
                   f'{qnum(col)}')
 
-            Thread(target=motor, args=(1, degrees(m, n, f, h)[0], 0)).start()
             Thread(target=motor, args=(2, degrees(m, n, f, h)[1], 0)).start()
             Thread(target=motor, args=(3, degrees(m, n, f, h)[2], 0)).start()
+            motor(1, degrees(m, n, f, h)[0], 0)
             a=abcs(degrees(m, n, f, h)[0], 1)
             b=abcs(degrees(m, n, f, h)[1], 2)
             c=abcs(degrees(m, n, f, h)[2], 3)
@@ -496,9 +496,9 @@ for col in range(3):
                   f'{degrees(m, n, f, blocks[2].index(second) + 1)[2]}, '
                   f'{cnum(blocks[2].index(second))}')
 
-            Thread(target=motor, args=(1, degrees(m, n, f, blocks[2].index(second) + 1)[0], 0)).start()
             Thread(target=motor, args=(2, degrees(m, n, f, blocks[2].index(second) + 1)[1], 0)).start()
             Thread(target=motor, args=(3, degrees(m, n, f, blocks[2].index(second) + 1)[2], 0)).start()
+            motor(1, degrees(m, n, f, blocks[2].index(second) + 1)[0], 0)
             a=abcs(degrees(m, n, f, blocks[2].index(second) + 1)[0], 1)
             b=abcs(degrees(m, n, f, blocks[2].index(second) + 1)[1], 2)
             c=abcs(degrees(m, n, f, blocks[2].index(second) + 1)[2], 3)
@@ -523,9 +523,9 @@ for col in range(3):
                   f'{degrees(m, n, f, h)[2]}, '
                   f'{qnum(col)}')
 
-            Thread(target=motor, args=(1, degrees(m, n, f, h)[0], 0)).start()
             Thread(target=motor, args=(2, degrees(m, n, f, h)[1], 0)).start()
             Thread(target=motor, args=(3, degrees(m, n, f, h)[2], 0)).start()
+            motor(1, degrees(m, n, f, h)[0], 0)
             a=abcs(degrees(m, n, f, h)[0], 1)
             b=abcs(degrees(m, n, f, h)[1], 2)
             c=abcs(degrees(m, n, f, h)[2], 3)
@@ -562,9 +562,9 @@ for col in range(3):
               f'{degrees(m, n, f, mid + 1)[2]}, '
               f'{cnum(mid)}')
 
-        Thread(target=motor, args=(1, degrees(m, n, f, mid + 1)[0], 0)).start()
         Thread(target=motor, args=(2, degrees(m, n, f, mid + 1)[1], 0)).start()
         Thread(target=motor, args=(3, degrees(m, n, f, mid + 1)[2], 0)).start()
+        motor(1, degrees(m, n, f, mid + 1)[0], 0)
         a=abcs(degrees(m, n, f, mid + 1)[0], 1)
         b=abcs(degrees(m, n, f, mid + 1)[1], 2)
         c=abcs(degrees(m, n, f, mid + 1)[2], 3)
@@ -586,9 +586,9 @@ for col in range(3):
               f'{degrees(m, n, f, h)[2]}, '
               f'{qnum(col)}')
 
-        Thread(target=motor, args=(1, degrees(m, n, f, h)[0], 0)).start()
         Thread(target=motor, args=(2, degrees(m, n, f, h)[1], 0)).start()
         Thread(target=motor, args=(3, degrees(m, n, f, h)[2], 0)).start()
+        motor(1, degrees(m, n, f, h)[0], 0)
         a=abcs(degrees(m, n, f, h)[0], 1)
         b=abcs(degrees(m, n, f, h)[1], 2)
         c=abcs(degrees(m, n, f, h)[2], 3)
@@ -622,9 +622,9 @@ for col in range(3):
               f'{degrees(m, n, f, mid + 1)[2]}, '
               f'{cnum(mid)}')
 
-        Thread(target=motor, args=(1, degrees(m, n, f, mid + 1)[0], 0)).start()
         Thread(target=motor, args=(2, degrees(m, n, f, mid + 1)[1], 0)).start()
         Thread(target=motor, args=(3, degrees(m, n, f, mid + 1)[2], 0)).start()
+        motor(1, degrees(m, n, f, mid + 1)[0], 0)
         a=abcs(degrees(m, n, f, mid + 1)[0], 1)
         b=abcs(degrees(m, n, f, mid + 1)[1], 2)
         c=abcs(degrees(m, n, f, mid + 1)[2], 3)
@@ -646,9 +646,9 @@ for col in range(3):
               f'{degrees(m, n, f, tmp + 1)[2]}, '
               f'{cnum(tmp)}')
 
-        Thread(target=motor, args=(1, degrees(m, n, f, tmp + 1)[0], 0)).start()
         Thread(target=motor, args=(2, degrees(m, n, f, tmp + 1)[1], 0)).start()
         Thread(target=motor, args=(3, degrees(m, n, f, tmp + 1)[2], 0)).start()
+        motor(1, degrees(m, n, f, tmp + 1)[0], 0)
         a=abcs(degrees(m, n, f, tmp + 1)[0], 1)
         b=abcs(degrees(m, n, f, tmp + 1)[1], 2)
         c=abcs(degrees(m, n, f, tmp + 1)[2], 3)
@@ -683,9 +683,9 @@ for col in range(3):
               f'{degrees(m, n, f, mid + 1)[2]}, '
               f'{cnum(mid)}')
 
-        Thread(target=motor, args=(1, degrees(m, n, f, mid + 1)[0], 0)).start()
         Thread(target=motor, args=(2, degrees(m, n, f, mid + 1)[1], 0)).start()
         Thread(target=motor, args=(3, degrees(m, n, f, mid + 1)[2], 0)).start()
+        motor(1, degrees(m, n, f, mid + 1)[0], 0)
         a=abcs(degrees(m, n, f, mid + 1)[0], 1)
         b=abcs(degrees(m, n, f, mid + 1)[1], 2)
         c=abcs(degrees(m, n, f, mid + 1)[2], 3)
@@ -711,9 +711,9 @@ for col in range(3):
               f'{degrees(m, n, f, h)[2]}, '
               f'{qnum(col)}')
 
-        Thread(target=motor, args=(1, degrees(m, n, f, h)[0], 0)).start()
         Thread(target=motor, args=(2, degrees(m, n, f, h)[1], 0)).start()
         Thread(target=motor, args=(3, degrees(m, n, f, h)[2], 0)).start()
+        motor(1, degrees(m, n, f, h)[0], 0)
         a=abcs(degrees(m, n, f, h)[0], 1)
         b=abcs(degrees(m, n, f, h)[1], 2)
         c=abcs(degrees(m, n, f, h)[2], 3)
@@ -749,10 +749,9 @@ for col in range(3):
               f' {degrees(m, n, f, blocks[1].index(third) + 1)[2]}, '
               f'{cnum(blocks[1].index(third))}')
 
-        Thread(target=motor, args=(1, degrees(m, n, f, blocks[1].index(third) + 1)[0], 0)).start()
         Thread(target=motor, args=(2, degrees(m, n, f, blocks[1].index(third) + 1)[1], 0)).start()
         Thread(target=motor, args=(3, degrees(m, n, f, blocks[1].index(third) + 1)[2], 0)).start()
-
+        motor(1, degrees(m, n, f, blocks[1].index(third) + 1)[0], 0)
 
         a=abcs(degrees(m, n, f, blocks[1].index(third) + 1)[0], 1)
         b=abcs(degrees(m, n, f, blocks[1].index(third) + 1)[1], 2)
@@ -778,14 +777,13 @@ for col in range(3):
               f'{degrees(m, n, f, h)[2]}, '
               f'{qnum(col)}')
 
-        Thread(target=motor, args=(1, degrees(m, n, f, h)[0], 0)).start()
         Thread(target=motor, args=(2, degrees(m, n, f, h)[1], 0)).start()
         Thread(target=motor, args=(3, degrees(m, n, f, h)[2], 0)).start()
+        motor(1, degrees(m, n, f, h)[0], 0)
         a=abcs(degrees(m, n, f, h)[0], 1)
         b=abcs(degrees(m, n, f, h)[1], 2)
         c=abcs(3,degrees(m, n, f, h)[2], 3)
         motor(4, qnum(col), 0)
-
 
         if m + a < 0:
             m += a + 360
@@ -815,9 +813,9 @@ for col in range(3):
               f'{degrees(m, n, f, blocks[2].index(third) + 1)[2]}, '
               f'{cnum(blocks[2].index(third))}')
 
-        Thread(target=motor, args=(1, degrees(m, n, f, blocks[2].index(third) + 1)[0], 0)).start()
         Thread(target=motor, args=(2, degrees(m, n, f, blocks[2].index(third) + 1)[1], 0)).start()
         Thread(target=motor, args=(3, degrees(m, n, f, blocks[2].index(third) + 1)[2], 0)).start()
+        motor(1, degrees(m, n, f, blocks[2].index(third) + 1)[0], 0)
         a=abcs(degrees(m, n, f, blocks[2].index(third) + 1)[0], 1)
         b=abcs(degrees(m, n, f, blocks[2].index(third) + 1)[1], 2)
         c=abcs(degrees(m, n, f, blocks[2].index(third) + 1)[2], 3)
@@ -834,7 +832,6 @@ for col in range(3):
 
         made[col].append(blocks[2][blocks[2].index(third)])
 
-
         print(f'Чтобы доехать от {blocks[2].index(third) + 1} башни (маленький кубик) до столбца # {col + 1} '
               f'поворачиваемся на '
               f'{degrees(m, n, f, h)[0]}, '
@@ -842,16 +839,14 @@ for col in range(3):
               f'{degrees(m, n, f, h)[2]}, '
               f'{qnum(col)}')
 
-        Thread(target=motor, args=(1, degrees(m, n, f, h)[0], 0)).start()
         Thread(target=motor, args=(2, degrees(m, n, f, h)[1], 0)).start()
         Thread(target=motor, args=(3, degrees(m, n, f, h)[2], 0)).start()
-
+        motor(1, degrees(m, n, f, h)[0], 0)
 
         a=abcs(degrees(m, n, f, h)[0], 1)
         b=abcs(degrees(m, n, f, h)[1], 2)
         c=abcs(degrees(m, n, f, h)[2], 3)
         motor(4, qnum(col), 0)
-
 
         if m + a < 0:
             m += a + 360
@@ -862,23 +857,6 @@ for col in range(3):
         n += b
         f += c
         blocks[2][blocks[2].index(third)] = ''
-#M1 M2 M3 CAN be more then 360 and less then -360. that'll break logic. how to change language?
-m1=round(m1 ,4)*-1
-m2=round(m2 ,4)*-1
-m3=round(m3 ,4)*-1
-if m1<0 :
-    if m1+360<m1*-1:
-        a=abcs(m1+360, 1)
-    else:
-        a=abcs(m1*-1, 1)
-else:
-    if m1<360-m1:
-        a=abcs(m1, 1)
-    else:
-        a=abcs(m1-360, 1)
-b=abcs(m2, 1)
-c=abcs(m3, 2)
-print(m1, m2, m3)
-        
+
 
 
