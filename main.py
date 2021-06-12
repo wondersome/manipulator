@@ -69,6 +69,8 @@ count = 0
 a=0
 b=0
 c=0
+list_threads = []
+
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(27, GPIO.IN)
@@ -82,18 +84,15 @@ for x in blocks[1]:
               f' {degrees(m, n, f, blocks[1].index(x) + 1)[0]}, '
               f'{degrees(m, n, f, blocks[1].index(x) + 1)[1]}, '
               f'{degrees(m, n, f, blocks[1].index(x) + 1)[2]}, {height(1, 1)}')
-        file = open("data.txt", "w")
-        file.truncate()
-        file.close()
-        Thread(target=motor, args=(1, degrees(m, n, f, blocks[1].index(x) + 1)[0], 0)).start()
-        Thread(target=motor, args=(2, degrees(m, n, f, blocks[1].index(x) + 1)[1], 0)).start()
-        Thread(target=motor, args=(3, degrees(m, n, f, blocks[1].index(x) + 1)[2], 0)).start()
-        file = open("data.txt", "r")
-        data = file.read()
-        while len(data) != 3:
+        p1 = Thread(target=motor, args=(1, degrees(m, n, f, blocks[1].index(x) + 1)[0], 0))
+        p2 = Thread(target=motor, args=(2, degrees(m, n, f, blocks[1].index(x) + 1)[1], 0))
+        p3 = Thread(target=motor, args=(3, degrees(m, n, f, blocks[1].index(x) + 1)[2], 0))
+        p1.start()
+        p2.start()
+        p3.start()
+        while p1.isAlive()==1 and p2.isAlive()==1 and p3.isAlive() == 1:
             time.sleep(0.1)
-            print(motor_control.motors.change)
-        file.close()
+
         a=abcs(degrees(m, n, f, blocks[1].index(x) + 1)[0], 1)
         b=abcs(degrees(m, n, f, blocks[1].index(x) + 1)[1], 2)
         c=abcs(degrees(m, n, f, blocks[1].index(x) + 1)[2], 3)
@@ -134,10 +133,13 @@ for col in range(3):
               f'{degrees(m, n, f, blocks[1].index(first) + 1)[2]}, '
               f'{cnum(blocks[1].index(first))}')
         motor_control.motors.change = 0
-        Thread(target=motor, args=(2, degrees(m, n, f, blocks[1].index(first) + 1)[1], 0)).start()
-        Thread(target=motor, args=(3, degrees(m, n, f, blocks[1].index(first) + 1)[2], 0)).start()
-        Thread(target=motor, args=(1, degrees(m, n, f, blocks[1].index(first) + 1)[0], 0)).start()
-        while motor_control.motors.change != 3:
+        p2 = Thread(target=motor, args=(2, degrees(m, n, f, blocks[1].index(first) + 1)[1], 0)).start()
+        p3 = Thread(target=motor, args=(3, degrees(m, n, f, blocks[1].index(first) + 1)[2], 0)).start()
+        p1 = Thread(target=motor, args=(1, degrees(m, n, f, blocks[1].index(first) + 1)[0], 0)).start()
+        p1.start()
+        p2.start()
+        p3.start()
+        while p1.isAlive() == 1 and p2.isAlive() == 1 and p3.isAlive() == 1:
             time.sleep(0.1)
         a=abcs(degrees(m, n, f, blocks[1].index(first) + 1)[0], 1)
         b=abcs(degrees(m, n, f, blocks[1].index(first) + 1)[1], 2)
@@ -161,11 +163,13 @@ for col in range(3):
               f'{degrees(m, n, f, h)[1]}, '
               f'{degrees(m, n, f, h)[2]}, '
               f' {qnum(col)}')
-        Thread(target=motor, args=(1, degrees(m, n, f, h)[0], 0)).start()
-        Thread(target=motor, args=(2, degrees(m, n, f, h)[1], 0)).start()
-        Thread(target=motor, args=(3, degrees(m, n, f, h)[2], 0)).start()
-        motor_control.motors.change = 0
-        while motor_control.motors.change != 3:
+        p1 = Thread(target=motor, args=(1, degrees(m, n, f, h)[0], 0)).start()
+        p2 = Thread(target=motor, args=(2, degrees(m, n, f, h)[1], 0)).start()
+        p3 = Thread(target=motor, args=(3, degrees(m, n, f, h)[2], 0)).start()
+        p1.start()
+        p2.start()
+        p3.start()
+        while p1.isAlive() == 1 and p2.isAlive() == 1 and p3.isAlive() == 1:
             time.sleep(0.1)
         a=abcs(degrees(m, n, f, h)[0], 1)
         b=abcs(degrees(m, n, f, h)[1], 2)
@@ -201,11 +205,14 @@ for col in range(3):
               f'{cnum(big)}')
 
         motor_control.motors.change = 0
-        Thread(target=motor, args=(1, degrees(m, n, f, big + 1)[0], 0)).start()
-        Thread(target=motor, args=(2, degrees(m, n, f, big + 1)[1], 0)).start()
-        Thread(target=motor, args=(3, degrees(m, n, f, big + 1)[2], 0)).start()
+        p1 = Thread(target=motor, args=(1, degrees(m, n, f, big + 1)[0], 0)).start()
+        p2 = Thread(target=motor, args=(2, degrees(m, n, f, big + 1)[1], 0)).start()
+        p3 = Thread(target=motor, args=(3, degrees(m, n, f, big + 1)[2], 0)).start()
 
-        while motor_control.motors.change != 3:         
+        p1.start()
+        p2.start()
+        p3.start()
+        while p1.isAlive() == 1 and p2.isAlive() == 1 and p3.isAlive() == 1:
             time.sleep(0.1)
         a=abcs(degrees(m, n, f, big + 1)[0], 1)
         b=abcs(degrees(m, n, f, big + 1)[1], 2)
@@ -229,10 +236,13 @@ for col in range(3):
               f'{degrees(m, n, f, h)[2]}, '
               f'{qnum(col)}')
         motor_control.motors.change = 0
-        Thread(target=motor, args=(1, degrees(m, n, f, h)[0], 0)).start()
-        Thread(target=motor, args=(2, degrees(m, n, f, h)[1], 0)).start()
-        Thread(target=motor, args=(3, degrees(m, n, f, h)[2], 0)).start()
-        while motor_control.motors.change != 3:
+        p1 = Thread(target=motor, args=(1, degrees(m, n, f, h)[0], 0)).start()
+        p2 = Thread(target=motor, args=(2, degrees(m, n, f, h)[1], 0)).start()
+        p3 = Thread(target=motor, args=(3, degrees(m, n, f, h)[2], 0)).start()
+        p1.start()
+        p2.start()
+        p3.start()
+        while p1.isAlive() == 1 and p2.isAlive() == 1 and p3.isAlive() == 1:
             time.sleep(0.1)
         a=abcs(degrees(m, n, f, h)[0], 1)
         b=abcs(degrees(m, n, f, h)[1], 2)
@@ -271,11 +281,13 @@ for col in range(3):
                   f'{degrees(m, n, f, big + 1)[1]}, '
                   f'{degrees(m, n, f, big + 1)[2]}, '
                   f'{cnum(big)}')
-            Thread(target=motor, args=(1, degrees(m, n, f, big + 1)[0], 0)).start()
-            Thread(target=motor, args=(2, degrees(m, n, f, big + 1)[1], 0)).start()
-            Thread(target=motor, args=(3, degrees(m, n, f, big + 1)[2], 0)).start()
-            motor_control.motors.change = 0
-            while motor_control.motors.change != 3:
+            p1 = Thread(target=motor, args=(1, degrees(m, n, f, big + 1)[0], 0)).start()
+            p2 = Thread(target=motor, args=(2, degrees(m, n, f, big + 1)[1], 0)).start()
+            p3 = Thread(target=motor, args=(3, degrees(m, n, f, big + 1)[2], 0)).start()
+            p1.start()
+            p2.start()
+            p3.start()
+            while p1.isAlive() == 1 and p2.isAlive() == 1 and p3.isAlive() == 1:
                 time.sleep(0.1)
             a=abcs(degrees(m, n, f, big + 1)[0], 1)
             b=abcs(degrees(m, n, f, big + 1)[1], 2)
@@ -298,11 +310,13 @@ for col in range(3):
                   f'{degrees(m, n, f, tmp + 1)[1]}, '
                   f'{degrees(m, n, f, tmp + 1)[2]}, '
                   f'{cnum(tmp)}')
-            Thread(target=motor, args=(1, degrees(m, n, f, tmp + 1)[0], 0)).start()
-            Thread(target=motor, args=(2, degrees(m, n, f, tmp + 1)[1], 0)).start()
-            Thread(target=motor, args=(3, degrees(m, n, f, tmp + 1)[2], 0)).start()
-            motor_control.motors.change = 0
-            while motor_control.motors.change != 3:
+            p1 = Thread(target=motor, args=(1, degrees(m, n, f, tmp + 1)[0], 0)).start()
+            p2 = Thread(target=motor, args=(2, degrees(m, n, f, tmp + 1)[1], 0)).start()
+            p3 = Thread(target=motor, args=(3, degrees(m, n, f, tmp + 1)[2], 0)).start()
+            p1.start()
+            p2.start()
+            p3.start()
+            while p1.isAlive() == 1 and p2.isAlive() == 1 and p3.isAlive() == 1:
                 time.sleep(0.1)
             a=abcs(degrees(m, n, f, tmp + 1)[0], 1)
             b=abcs(degrees(m, n, f, tmp + 1)[1], 2)
@@ -333,10 +347,13 @@ for col in range(3):
                 f'{cnum(big)}')
 
             motor_control.motors.change = 0
-            Thread(target=motor, args=(1, degrees(m, n, f, big + 1)[0], 0)).start()
-            Thread(target=motor, args=(2, degrees(m, n, f, big + 1)[1], 0)).start()
-            Thread(target=motor, args=(3, degrees(m, n, f, big + 1)[2], 0)).start()
-            while motor_control.motors.change != 3:
+            p1 = Thread(target=motor, args=(1, degrees(m, n, f, big + 1)[0], 0)).start()
+            p2 = Thread(target=motor, args=(2, degrees(m, n, f, big + 1)[1], 0)).start()
+            p3 = Thread(target=motor, args=(3, degrees(m, n, f, big + 1)[2], 0)).start()
+            p1.start()
+            p2.start()
+            p3.start()
+            while p1.isAlive() == 1 and p2.isAlive() == 1 and p3.isAlive() == 1:
                 time.sleep(0.1)
             a=abcs(degrees(m, n, f, big + 1)[0], 1)
             b=abcs(degrees(m, n, f, big + 1)[1], 2)
@@ -360,11 +377,13 @@ for col in range(3):
                   f'{degrees(m, n, f, tmp + 1)[2]}, '
                   f'{cnum(tmp)}')
             motor_control.motors.change = 0
-            Thread(target=motor, args=(1, degrees(m, n, f, tmp + 1)[0], 0)).start()
-            Thread(target=motor, args=(2, degrees(m, n, f, tmp + 1)[1], 0)).start()
-            Thread(target=motor, args=(3, degrees(m, n, f, tmp + 1)[2], 0)).start()
-
-            while motor_control.motors.change != 3:
+            p1 = Thread(target=motor, args=(1, degrees(m, n, f, tmp + 1)[0], 0)).start()
+            p2 = Thread(target=motor, args=(2, degrees(m, n, f, tmp + 1)[1], 0)).start()
+            p3 = Thread(target=motor, args=(3, degrees(m, n, f, tmp + 1)[2], 0)).start()
+            p1.start()
+            p2.start()
+            p3.start()
+            while p1.isAlive() == 1 and p2.isAlive() == 1 and p3.isAlive() == 1:
                 time.sleep(0.1)
             a=abcs(degrees(m, n, f, tmp + 1)[0], 1)
             b=abcs(degrees(m, n, f, tmp + 1)[1], 2)
@@ -398,11 +417,13 @@ for col in range(3):
               f'{degrees(m, n, f, big + 1)[2]}, '
               f'{cnum(big)}')
         motor_control.motors.change = 0
-        Thread(target=motor, args=(1, degrees(m, n, f, big + 1)[0], 0)).start()
-        Thread(target=motor, args=(2, degrees(m, n, f, big + 1)[1], 0)).start()
-        Thread(target=motor, args=(3, degrees(m, n, f, big + 1)[2], 0)).start()
-
-        while motor_control.motors.change != 3:
+        p1 = Thread(target=motor, args=(1, degrees(m, n, f, big + 1)[0], 0)).start()
+        p2 = Thread(target=motor, args=(2, degrees(m, n, f, big + 1)[1], 0)).start()
+        p3 = Thread(target=motor, args=(3, degrees(m, n, f, big + 1)[2], 0)).start()
+        p1.start()
+        p2.start()
+        p3.start()
+        while p1.isAlive() == 1 and p2.isAlive() == 1 and p3.isAlive() == 1:
             time.sleep(0.1)
         a=abcs(degrees(m, n, f, big + 1)[0], 1)
         b=abcs(degrees(m, n, f, big + 1)[1], 2)
@@ -424,11 +445,13 @@ for col in range(3):
               f'{degrees(m, n, f, h)[2]}, '
               f'{qnum(tmp)}')
         motor_control.motors.change = 0
-        Thread(target=motor, args=(1, degrees(m, n, f, h)[0], 0)).start()
-        Thread(target=motor, args=(2, degrees(m, n, f, h)[1], 0)).start()
-        Thread(target=motor, args=(3, degrees(m, n, f, h)[2], 0)).start()
-
-        while motor_control.motors.change != 3:
+        p1 = Thread(target=motor, args=(1, degrees(m, n, f, h)[0], 0)).start()
+        p2 = Thread(target=motor, args=(2, degrees(m, n, f, h)[1], 0)).start()
+        p3 = Thread(target=motor, args=(3, degrees(m, n, f, h)[2], 0)).start()
+        p1.start()
+        p2.start()
+        p3.start()
+        while p1.isAlive() == 1 and p2.isAlive() == 1 and p3.isAlive() == 1:
             time.sleep(0.1)
         a=abcs(degrees(m, n, f, h)[0], 1)
         b=abcs(degrees(m, n, f, h)[1], 2)
@@ -461,10 +484,13 @@ for col in range(3):
                   f'{degrees(m, n, f, blocks[1].index(second) + 1)[2]}, '
                   f'{cnum(blocks[1].index(second))}')
             motor_control.motors.change = 0
-            Thread(target=motor, args=(1, degrees(m, n, f, h)[0], 0)).start()
-            Thread(target=motor, args=(2, degrees(m, n, f, h)[1], 0)).start()
-            Thread(target=motor, args=(3, degrees(m, n, f, h)[2], 0)).start()
-            while motor_control.motors.change != 3:
+            p1 = Thread(target=motor, args=(1, degrees(m, n, f, h)[0], 0)).start()
+            p2 = Thread(target=motor, args=(2, degrees(m, n, f, h)[1], 0)).start()
+            p3 = Thread(target=motor, args=(3, degrees(m, n, f, h)[2], 0)).start()
+            p1.start()
+            p2.start()
+            p3.start()
+            while p1.isAlive() == 1 and p2.isAlive() == 1 and p3.isAlive() == 1:
                 time.sleep(0.1)
             a=abcs(degrees(m, n, f, blocks[1].index(second) + 1)[0], 1)
             b=abcs(degrees(m, n, f, blocks[1].index(second) + 1)[1], 2)
@@ -489,11 +515,13 @@ for col in range(3):
                   f'{degrees(m, n, f, h)[2]}, '
                   f'{qnum(col)}')
             motor_control.motors.change = 0
-            Thread(target=motor, args=(1, degrees(m, n, f, h)[0], 0)).start()
-            Thread(target=motor, args=(2, degrees(m, n, f, h)[1], 0)).start()
-            Thread(target=motor, args=(3, degrees(m, n, f, h)[2], 0)).start()
-
-            while motor_control.motors.change != 3:
+            p1 = Thread(target=motor, args=(1, degrees(m, n, f, h)[0], 0)).start()
+            p2 = Thread(target=motor, args=(2, degrees(m, n, f, h)[1], 0)).start()
+            p3 = Thread(target=motor, args=(3, degrees(m, n, f, h)[2], 0)).start()
+            p1.start()
+            p2.start()
+            p3.start()
+            while p1.isAlive() == 1 and p2.isAlive() == 1 and p3.isAlive() == 1:
                 time.sleep(0.1)
             a=abcs(degrees(m, n, f, h)[0], 1)
             b=abcs(degrees(m, n, f, h)[1], 2)
@@ -528,11 +556,13 @@ for col in range(3):
                   f'{degrees(m, n, f, blocks[2].index(second) + 1)[2]}, '
                   f'{cnum(blocks[2].index(second))}')
             motor_control.motors.change = 0
-            Thread(target=motor, args=(1, degrees(m, n, f, blocks[2].index(second) + 1)[0], 0)).start()
-            Thread(target=motor, args=(2, degrees(m, n, f, blocks[2].index(second) + 1)[1], 0)).start()
-            Thread(target=motor, args=(3, degrees(m, n, f, blocks[2].index(second) + 1)[2], 0)).start()
-
-            while motor_control.motors.change != 3:
+            p1 = Thread(target=motor, args=(1, degrees(m, n, f, blocks[2].index(second) + 1)[0], 0)).start()
+            p2 = Thread(target=motor, args=(2, degrees(m, n, f, blocks[2].index(second) + 1)[1], 0)).start()
+            p3 = Thread(target=motor, args=(3, degrees(m, n, f, blocks[2].index(second) + 1)[2], 0)).start()
+            p1.start()
+            p2.start()
+            p3.start()
+            while p1.isAlive() == 1 and p2.isAlive() == 1 and p3.isAlive() == 1:
                 time.sleep(0.1)
             a=abcs(degrees(m, n, f, blocks[2].index(second) + 1)[0], 1)
             b=abcs(degrees(m, n, f, blocks[2].index(second) + 1)[1], 2)
@@ -558,11 +588,13 @@ for col in range(3):
                   f'{degrees(m, n, f, h)[2]}, '
                   f'{qnum(col)}')
             motor_control.motors.change = 0
-            Thread(target=motor, args=(1, degrees(m, n, f, h)[0], 0)).start()
-            Thread(target=motor, args=(2, degrees(m, n, f, h)[1], 0)).start()
-            Thread(target=motor, args=(3, degrees(m, n, f, h)[2], 0)).start()
-
-            while motor_control.motors.change != 3:
+            p1 = Thread(target=motor, args=(1, degrees(m, n, f, h)[0], 0)).start()
+            p2 = Thread(target=motor, args=(2, degrees(m, n, f, h)[1], 0)).start()
+            p3 = Thread(target=motor, args=(3, degrees(m, n, f, h)[2], 0)).start()
+            p1.start()
+            p2.start()
+            p3.start()
+            while p1.isAlive() == 1 and p2.isAlive() == 1 and p3.isAlive() == 1:
                 time.sleep(0.1)
             a=abcs(degrees(m, n, f, h)[0], 1)
             b=abcs(degrees(m, n, f, h)[1], 2)
@@ -600,11 +632,13 @@ for col in range(3):
               f'{degrees(m, n, f, mid + 1)[2]}, '
               f'{cnum(mid)}')
         motor_control.motors.change = 0
-        Thread(target=motor, args=(1, degrees(m, n, f, mid + 1)[0], 0)).start()
-        Thread(target=motor, args=(2, degrees(m, n, f, mid + 1)[1], 0)).start()
-        Thread(target=motor, args=(3, degrees(m, n, f, mid + 1)[2], 0)).start()
-
-        while motor_control.motors.change != 3:
+        p1 = Thread(target=motor, args=(1, degrees(m, n, f, mid + 1)[0], 0)).start()
+        p2 = Thread(target=motor, args=(2, degrees(m, n, f, mid + 1)[1], 0)).start()
+        p3 = Thread(target=motor, args=(3, degrees(m, n, f, mid + 1)[2], 0)).start()
+        p1.start()
+        p2.start()
+        p3.start()
+        while p1.isAlive() == 1 and p2.isAlive() == 1 and p3.isAlive() == 1:
             time.sleep(0.1)
         a=abcs(degrees(m, n, f, mid + 1)[0], 1)
         b=abcs(degrees(m, n, f, mid + 1)[1], 2)
@@ -627,11 +661,13 @@ for col in range(3):
               f'{degrees(m, n, f, h)[2]}, '
               f'{qnum(col)}')
         motor_control.motors.change = 0
-        Thread(target=motor, args=(1, degrees(m, n, f, h)[0], 0)).start()
-        Thread(target=motor, args=(2, degrees(m, n, f, h)[1], 0)).start()
-        Thread(target=motor, args=(3, degrees(m, n, f, h)[2], 0)).start()
-
-        while motor_control.motors.change != 3:
+        p1 = Thread(target=motor, args=(1, degrees(m, n, f, h)[0], 0)).start()
+        p2 = Thread(target=motor, args=(2, degrees(m, n, f, h)[1], 0)).start()
+        p3 = Thread(target=motor, args=(3, degrees(m, n, f, h)[2], 0)).start()
+        p1.start()
+        p2.start()
+        p3.start()
+        while p1.isAlive() == 1 and p2.isAlive() == 1 and p3.isAlive() == 1:
             time.sleep(0.1)
         a=abcs(degrees(m, n, f, h)[0], 1)
         b=abcs(degrees(m, n, f, h)[1], 2)
@@ -666,10 +702,13 @@ for col in range(3):
               f'{degrees(m, n, f, mid + 1)[2]}, '
               f'{cnum(mid)}')
         motor_control.motors.change = 0
-        Thread(target=motor, args=(1, degrees(m, n, f, mid + 1)[0], 0)).start()
-        Thread(target=motor, args=(2, degrees(m, n, f, mid + 1)[1], 0)).start()
-        Thread(target=motor, args=(3, degrees(m, n, f, mid + 1)[2], 0)).start()
-        while motor_control.motors.change != 3:
+        p1 = Thread(target=motor, args=(1, degrees(m, n, f, mid + 1)[0], 0)).start()
+        p2 = Thread(target=motor, args=(2, degrees(m, n, f, mid + 1)[1], 0)).start()
+        p3 = Thread(target=motor, args=(3, degrees(m, n, f, mid + 1)[2], 0)).start()
+        p1.start()
+        p2.start()
+        p3.start()
+        while p1.isAlive() == 1 and p2.isAlive() == 1 and p3.isAlive() == 1:
             time.sleep(0.1)
         a=abcs(degrees(m, n, f, mid + 1)[0], 1)
         b=abcs(degrees(m, n, f, mid + 1)[1], 2)
@@ -692,11 +731,13 @@ for col in range(3):
               f'{degrees(m, n, f, tmp + 1)[2]}, '
               f'{cnum(tmp)}')
         motor_control.motors.change = 0
-        Thread(target=motor, args=(1, degrees(m, n, f, tmp + 1)[0], 0)).start()
-        Thread(target=motor, args=(2, degrees(m, n, f, tmp + 1)[1], 0)).start()
-        Thread(target=motor, args=(3, degrees(m, n, f, tmp + 1)[2], 0)).start()
-
-        while motor_control.motors.change != 3:
+        p1 = Thread(target=motor, args=(1, degrees(m, n, f, tmp + 1)[0], 0)).start()
+        p2 = Thread(target=motor, args=(2, degrees(m, n, f, tmp + 1)[1], 0)).start()
+        p3 = Thread(target=motor, args=(3, degrees(m, n, f, tmp + 1)[2], 0)).start()
+        p1.start()
+        p2.start()
+        p3.start()
+        while p1.isAlive() == 1 and p2.isAlive() == 1 and p3.isAlive() == 1:
             time.sleep(0.1)
         a=abcs(degrees(m, n, f, tmp + 1)[0], 1)
         b=abcs(degrees(m, n, f, tmp + 1)[1], 2)
@@ -732,11 +773,13 @@ for col in range(3):
               f'{degrees(m, n, f, mid + 1)[2]}, '
               f'{cnum(mid)}')
         motor_control.motors.change = 0
-        Thread(target=motor, args=(1, degrees(m, n, f, mid + 1)[0], 0)).start()
-        Thread(target=motor, args=(2, degrees(m, n, f, mid + 1)[1], 0)).start()
-        Thread(target=motor, args=(3, degrees(m, n, f, mid + 1)[2], 0)).start()
-
-        while motor_control.motors.change != 3:
+        p1 = Thread(target=motor, args=(1, degrees(m, n, f, mid + 1)[0], 0)).start()
+        p2 = Thread(target=motor, args=(2, degrees(m, n, f, mid + 1)[1], 0)).start()
+        p3 = Thread(target=motor, args=(3, degrees(m, n, f, mid + 1)[2], 0)).start()
+        p1.start()
+        p2.start()
+        p3.start()
+        while p1.isAlive() == 1 and p2.isAlive() == 1 and p3.isAlive() == 1:
             time.sleep(0.1)
         a=abcs(degrees(m, n, f, mid + 1)[0], 1)
         b=abcs(degrees(m, n, f, mid + 1)[1], 2)
@@ -763,11 +806,13 @@ for col in range(3):
               f'{degrees(m, n, f, h)[2]}, '
               f'{qnum(col)}')
         motor_control.motors.change = 0
-        Thread(target=motor, args=(1, degrees(m, n, f, h)[0], 0)).start()
-        Thread(target=motor, args=(2, degrees(m, n, f, h)[1], 0)).start()
-        Thread(target=motor, args=(3, degrees(m, n, f, h)[2], 0)).start()
-
-        while motor_control.motors.change != 3:
+        p1 = Thread(target=motor, args=(1, degrees(m, n, f, h)[0], 0)).start()
+        p2 = Thread(target=motor, args=(2, degrees(m, n, f, h)[1], 0)).start()
+        p3 = Thread(target=motor, args=(3, degrees(m, n, f, h)[2], 0)).start()
+        p1.start()
+        p2.start()
+        p3.start()
+        while p1.isAlive() == 1 and p2.isAlive() == 1 and p3.isAlive() == 1:
             time.sleep(0.1)
         a=abcs(degrees(m, n, f, h)[0], 1)
         b=abcs(degrees(m, n, f, h)[1], 2)
@@ -804,11 +849,14 @@ for col in range(3):
               f' {degrees(m, n, f, blocks[1].index(third) + 1)[2]}, '
               f'{cnum(blocks[1].index(third))}')
         motor_control.motors.change = 0
-        Thread(target=motor, args=(1, degrees(m, n, f, blocks[1].index(third) + 1)[0], 0)).start()
-        Thread(target=motor, args=(2, degrees(m, n, f, blocks[1].index(third) + 1)[1], 0)).start()
-        Thread(target=motor, args=(3, degrees(m, n, f, blocks[1].index(third) + 1)[2], 0)).start()
+        p1 = Thread(target=motor, args=(1, degrees(m, n, f, blocks[1].index(third) + 1)[0], 0)).start()
+        p2 = Thread(target=motor, args=(2, degrees(m, n, f, blocks[1].index(third) + 1)[1], 0)).start()
+        p3 = Thread(target=motor, args=(3, degrees(m, n, f, blocks[1].index(third) + 1)[2], 0)).start()
 
-        while motor_control.motors.change != 3:
+        p1.start()
+        p2.start()
+        p3.start()
+        while p1.isAlive() == 1 and p2.isAlive() == 1 and p3.isAlive() == 1:
             time.sleep(0.1)
 
 
@@ -836,11 +884,13 @@ for col in range(3):
               f'{degrees(m, n, f, h)[2]}, '
               f'{qnum(col)}')
         motor_control.motors.change = 0
-        Thread(target=motor, args=(1, degrees(m, n, f, h)[0], 0)).start()
-        Thread(target=motor, args=(2, degrees(m, n, f, h)[1], 0)).start()
-        Thread(target=motor, args=(3, degrees(m, n, f, h)[2], 0)).start()
-
-        while motor_control.motors.change != 3:
+        p1 = Thread(target=motor, args=(1, degrees(m, n, f, h)[0], 0)).start()
+        p2 = Thread(target=motor, args=(2, degrees(m, n, f, h)[1], 0)).start()
+        p3 = Thread(target=motor, args=(3, degrees(m, n, f, h)[2], 0)).start()
+        p1.start()
+        p2.start()
+        p3.start()
+        while p1.isAlive() == 1 and p2.isAlive() == 1 and p3.isAlive() == 1:
             time.sleep(0.1)
         a=abcs(degrees(m, n, f, h)[0], 1)
         b=abcs(degrees(m, n, f, h)[1], 2)
@@ -876,11 +926,13 @@ for col in range(3):
               f'{degrees(m, n, f, blocks[2].index(third) + 1)[2]}, '
               f'{cnum(blocks[2].index(third))}')
         motor_control.motors.change = 0
-        Thread(target=motor, args=(1, degrees(m, n, f, blocks[2].index(third) + 1)[0], 0)).start()
-        Thread(target=motor, args=(2, degrees(m, n, f, blocks[2].index(third) + 1)[1], 0)).start()
-        Thread(target=motor, args=(3, degrees(m, n, f, blocks[2].index(third) + 1)[2], 0)).start()
-
-        while motor_control.motors.change != 3:
+        p1 = Thread(target=motor, args=(1, degrees(m, n, f, blocks[2].index(third) + 1)[0], 0)).start()
+        p2 = Thread(target=motor, args=(2, degrees(m, n, f, blocks[2].index(third) + 1)[1], 0)).start()
+        p3 = Thread(target=motor, args=(3, degrees(m, n, f, blocks[2].index(third) + 1)[2], 0)).start()
+        p1.start()
+        p2.start()
+        p3.start()
+        while p1.isAlive() == 1 and p2.isAlive() == 1 and p3.isAlive() == 1:
             time.sleep(0.1)
         a=abcs(degrees(m, n, f, blocks[2].index(third) + 1)[0], 1)
         b=abcs(degrees(m, n, f, blocks[2].index(third) + 1)[1], 2)
@@ -906,11 +958,14 @@ for col in range(3):
               f'{degrees(m, n, f, h)[2]}, '
               f'{qnum(col)}')
         motor_control.motors.change = 0
-        Thread(target=motor, args=(1, degrees(m, n, f, h)[0], 0)).start()
-        Thread(target=motor, args=(2, degrees(m, n, f, h)[1], 0)).start()
-        Thread(target=motor, args=(3, degrees(m, n, f, h)[2], 0)).start()
+        p1 = Thread(target=motor, args=(1, degrees(m, n, f, h)[0], 0)).start()
+        p2 = Thread(target=motor, args=(2, degrees(m, n, f, h)[1], 0)).start()
+        p3 = Thread(target=motor, args=(3, degrees(m, n, f, h)[2], 0)).start()
 
-        while motor_control.motors.change != 3:
+        p1.start()
+        p2.start()
+        p3.start()
+        while p1.isAlive() == 1 and p2.isAlive() == 1 and p3.isAlive() == 1:
             time.sleep(0.1)
 
 
