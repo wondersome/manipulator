@@ -5,6 +5,7 @@ import time
 
 def motor(m, n, l):
     k = 0
+    change = 1
     if m == 1:
         dir = 23
         step = 24
@@ -63,7 +64,8 @@ def motor(m, n, l):
             time.sleep(k)
             GPIO.output(step, False)
             time.sleep(k)
-            i = i + 1   
+            i = i + 1
+    change += 1
     time.sleep(0.1)
     
 
