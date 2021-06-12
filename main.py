@@ -82,13 +82,18 @@ for x in blocks[1]:
               f' {degrees(m, n, f, blocks[1].index(x) + 1)[0]}, '
               f'{degrees(m, n, f, blocks[1].index(x) + 1)[1]}, '
               f'{degrees(m, n, f, blocks[1].index(x) + 1)[2]}, {height(1, 1)}')
-        motor_control.motors.change = 0
+        file = open("data.txt", "w")
+        file.truncate()
+        file.close()
         Thread(target=motor, args=(1, degrees(m, n, f, blocks[1].index(x) + 1)[0], 0)).start()
         Thread(target=motor, args=(2, degrees(m, n, f, blocks[1].index(x) + 1)[1], 0)).start()
         Thread(target=motor, args=(3, degrees(m, n, f, blocks[1].index(x) + 1)[2], 0)).start()
-        while motor_control.motors.change != 3:
+        file = open("data.txt", "r")
+        data = file.read()
+        while len(data) != 3:
             time.sleep(0.1)
             print(motor_control.motors.change)
+        file.close()
         a=abcs(degrees(m, n, f, blocks[1].index(x) + 1)[0], 1)
         b=abcs(degrees(m, n, f, blocks[1].index(x) + 1)[1], 2)
         c=abcs(degrees(m, n, f, blocks[1].index(x) + 1)[2], 3)

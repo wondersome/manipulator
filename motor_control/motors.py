@@ -66,7 +66,8 @@ def motor(m, n, l):
             time.sleep(k)
             i = i + 1
     print(change)
-    change += 1
+    file = open('data.txt', 'a')
+    file.write('h')
     time.sleep(0.1)
     
 
