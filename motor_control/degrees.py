@@ -63,21 +63,21 @@ def degrees(m, n, f, k):
 
     if k == 7:
         if 243.4349 > m >= 63.4349:
-            return round(217.7077 - m,4),round( -n + 49.3163,4),round( -f - 2.9761,4)
+            return round(219.7077 - m,4),round( -n + 50.3163,4),round( -f - 2.9761,4)
         else:
             if 0 <= m < 63.4349:
-                return round(-90.8379 - m,4),round( -n - 49.3163,4),round( -f + 50.1541,4)
+                return round(-92.8379 - m,4),round( -n - 50.3163,4),round( -f + 50.1541,4)
             else:
-                return round(269.1621 - m,4),round( -n - 49.3163,4),round( -f + 50.1541,4)
+                return round(272.1621 - m,4),round( -n - 50.3163,4),round( -f + 50.1541,4)
 
     if k == 8:
         if 296.5651 > m >= 116.5651:
-            return round(270.8379 - m,4),round( -n + 49.3163,4),round( -f - 50.1541,4)
+            return round(272.8379 - m,4),round( -n + 50.3163,4),round( -f - 50.1541,4)
         else:
             if 0 <= m < 116.5651:
-                return round(-37.7077 - m,4),round( -n - 49.3163,4),round( -f + 2.9761,4)
+                return round(-39.7077 - m,4),round( -n - 50.3163,4),round( -f + 2.9761,4)
             else:
-                return round(322.2923 - m,4),round( -n - 49.3163,4),round( -f + 2.9761,4)
+                return round(324.2923 - m,4),round( -n - 50.3163,4),round( -f + 2.9761,4)
 
 
 
