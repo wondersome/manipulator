@@ -9,15 +9,24 @@ from num import qnum, cnum, abcs
 def algo(value, value1, value2, made, col):
 
     def morgenshtern(deg1, deg2, deg3):
-        p1 = Thread(target=motor, args=(1, deg1, 0))
-        p2 = Thread(target=motor, args=(2, deg2, 0))
-        p3 = Thread(target=motor, args=(3, deg3, 0))
-        p1.start()
-        p2.start()
-        p3.start()
-        while p1.isAlive()==1 or p2.isAlive()==1 or  p3.isAlive() == 1:
-            time.sleep(0.1)
+        # p1 = Thread(target=motor, args=(1, deg1, 0))
+        # p2 = Thread(target=motor, args=(2, deg2, 0))
+        # p3 = Thread(target=motor, args=(3, deg3, 0))
+        # p1.start()
+        # p2.start()
+        # p3.start()
+        # while p1.isAlive()==1 or p2.isAlive()==1 or  p3.isAlive() == 1:
+        #     time.sleep(0.1)
+        motor(1, deg1, 0)
+        motor(2, deg2, 0)
+        motor(3, deg3, 0)
+        
 
+
+ 
+ 
+ 
+ 
     global m
     global n
     global f
@@ -41,6 +50,7 @@ def algo(value, value1, value2, made, col):
     file=open("shance.txt","r+")
     file.truncate(0)
     file.close()
+
     def output_to_small(value):
 
         global n, f, m
@@ -105,7 +115,7 @@ def algo(value, value1, value2, made, col):
             m += a
         n += b
         f += c
-        
+
         motor(4,qnum(col,made),0)
 
     def output_from_big(val):
@@ -152,6 +162,7 @@ def algo(value, value1, value2, made, col):
         n += b
         f += c
         motor(4,cnum(value2,value1),0)
+    am = []
 
 
 
@@ -168,6 +179,7 @@ def algo(value, value1, value2, made, col):
                 b=abcs(degrees(m, n, f, value1[1].index(x) + 1)[1], 2)
                 c=abcs(degrees(m, n, f, value1[1].index(x) + 1)[2], 3)
                 motor(4,height(1,1),1)
+
                 if m + a < 0:
                     m += a+360
                 elif m + a > 360:
@@ -176,7 +188,7 @@ def algo(value, value1, value2, made, col):
                     m += a
                 f += c
                 n+=b
-                if m<90:
+                if n>0:
                     b=abcs(40, 2)
                     motor(2,40,0)
                     motor(4,height(2,1),0)
@@ -194,6 +206,16 @@ def algo(value, value1, value2, made, col):
                     n+=b
                 value1[1][value1[1].index(x)] = ''
 
+            else:
+                am.append(x)
+
+                
+
+
+
+
+
+ 
     if col == 0:
         a = 0
         b = 1
@@ -233,17 +255,13 @@ def algo(value, value1, value2, made, col):
         else:
             for i in range(5):
                 if i != big:
-                    if third == '':
-                        if value1[0][i] != '' and value1[2][i] == '' and value1[1][i] != second:
-                            tmp = i
-                            indexes.append(tmp)
-                    elif value1[0][i]=="" and value1[0][i]!=second:
-                            tmp = i
-                            indexes.append(tmp)
-                    else:
-                        if value1[0][i] != '' and value1[2][i] == '' and value1[0][i] != second:
-                            tmp = i
-                            indexes.append(tmp)
+                    #f value1[2][i] == '' and value1[1][i] != second and value1[0][i] != second:
+                    if value1[0][i] == '' or value1[len(value1[0][i]) + len(value1[1][i]) + len(value1[2][i])-1][i] == (am[0] or am[1])  or value1[len(value1[0][i]) + len(value1[1][i]) + len(value1[2][i])-1][i].isupper() == True:
+                        indexes.append(i)
+                        
+
+                    
+                    
             tmp=5
             for i in range(len(indexes)):
                 if abs(big-indexes[i])<tmp:
@@ -254,7 +272,7 @@ def algo(value, value1, value2, made, col):
                 output_to_small(big)
                 value1[1][indexes[0]] = value1[1][big]
                 same(big, indexes[0])
-                value1[1][big] = '' 
+                value1[1][big] = ''
             else:  # если наверху два кубика, то перемещаем
                 value2.append(f'{big + 1} small blocks to blocks # {indexes[0] + 1}')
                 output_to_small(big)
@@ -299,17 +317,15 @@ def algo(value, value1, value2, made, col):
         else:
             for i in range(5):
                 if i != mid:
-                    if third == '':
-                        if value1[0][i] != '' and value1[2][i] == '' and value1[1][i] != third:
-                            tmp = i
-                            indexes.append(tmp)
-                    elif value1[0][i]=="" and value1[0][i]!=third:
-                            tmp = i
-                            indexes.append(tmp)
-                    else:
-                        if value1[0][i] != '' and value1[2][i] == '' and value1[0][i] != third:
-                            tmp = i
-                            indexes.append(tmp)
+                    #if value1[0][i] != '' and value1[2][i] == '' and value1[1][i] != third:
+                    if value1[0][i] == '' or value1[len(value1[0][i]) + len(value1[1][i]) + len(value1[2][i])-1][i] == (am[0] or am[1])  or value1[len(value1[0][i]) + len(value1[1][i]) + len(value1[2][i])-1][i].isupper() == True:
+                        tmp = i
+                        indexes.append(tmp)
+                    
+                    # else:
+                    #     if value1[0][i] != '' and value1[2][i] == '' and value1[0][i] != third:
+                    #         tmp = i
+                    #         indexes.append(tmp)
             tmp=5
             for i in range(len(indexes)):
                 if abs(big-indexes[i])<tmp:
@@ -351,4 +367,3 @@ def algo(value, value1, value2, made, col):
         file.write(str(n)+'\n')
         file.write(str(f))
     file.close()
-

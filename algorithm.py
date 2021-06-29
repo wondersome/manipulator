@@ -6,9 +6,9 @@ from rec import recognize
 
 
 def algorithm(col):
-    scheme = recognize[0]
+    scheme = recognize()[0]
 
-    blocks = recognize[1]
+    blocks = recognize()[1]
 
     made = [[], [], []]
     indexes = []

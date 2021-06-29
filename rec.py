@@ -1,7 +1,7 @@
 from PIL import Image
 import cv2
 import colorsys
-import numpy 
+import numpy
 from pprint import pprint
 
 
@@ -19,18 +19,19 @@ def recognize():
 
 
 
-    first = [[325, 469], [671, 306], [1090, 325]]
+    first = [[325, 469], [671, 306], [1089, 296]]
     first_first = [[679, 293], [1074, 314]]
 
-    second = [[185, 342], [642, 139], [1145, 133]]
-    second_second = [[660, 204], [1115, 206]]
+    second = [[185, 342], [642, 139], [1130, 203]]
+    second_second = [[660, 204], [1123, 208]]
 
 
 
     scheme = [[], [], []]
+
     blocks = [
-            [], 
-            [], 
+            [],
+            [],
             ['', '', '', '', '']]
 
     # ---comapring colors ----
@@ -127,14 +128,15 @@ def recognize():
             scheme[2].append("G")
         elif is_red == True:
             scheme[2].append("R")
-        
+
     a = len(scheme[0])
     b = len(scheme[1])
     c = len(scheme[2])
-
     scheme[0][a-1] = scheme[0][a-1].lower()
     scheme[1][b-1] = scheme[1][b-1].lower()
     scheme[2][c-1] = scheme[2][c-1].lower()
+
+    
 
 
     #------ blocks --------
@@ -188,7 +190,7 @@ def recognize():
         elif is_red == True:
             blocks[0].append("R")
 
-        
+
     for i in second:
         h, s, v = pix1[i[0], i[1]]
         h, s, v = colorsys.rgb_to_hsv(h, s, v)
@@ -237,8 +239,31 @@ def recognize():
             blocks[1].append("g")
         elif is_red == True:
             blocks[1].append("r")
+    
 
+    
+    a = len(scheme[0])
+    b = len(scheme[1])
+    c = len(scheme[2])
+    if a == 2:
+        scheme[0].append('')
+    elif a == 1:
+        scheme[0].append('')
+        scheme[0].append('')
+    
+    if b == 2:
+        scheme[1].append('')
+    elif b == 1:
+        scheme[1].append('')
+        scheme[1].append('')
+
+    if c == 2:
+        scheme[2].append('')
+    elif c == 1:
+        scheme[2].append('')
+        scheme[2].append('')
+    
+    
     return scheme, blocks
     pprint(scheme)
     pprint(blocks)
-

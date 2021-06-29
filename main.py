@@ -30,18 +30,19 @@ blocks35()
 motor(1,60,0)
 blocks13()
 
-recognize()
 
-scheme = recognize[0]
 
-blocks = recognize[1]
+scheme = recognize()[0]
+pprint(scheme)
+blocks = recognize()[1]
+pprint(blocks)
 db = []
 made = [[], [], []]
 dic = {}
 file = open("shance.txt","w")
 file.write('200'+'\n')
-file.write('115'+'\n')
-file.write('-27')
+file.write('0'+'\n')
+file.write('0')
 file.close()
 a = algorithm(0)
 b = algorithm(1)
