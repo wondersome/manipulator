@@ -18,7 +18,7 @@ def algo(value, value1, value2, made, col):
         #p1.start()
         #time.sleep(0.5)
         p2.start()
-        time.sleep(0.3)
+        time.sleep(0.2)
         p3.start()
         time.sleep(0.2)
         while p2.isAlive()==1 or  p3.isAlive() == 1:
@@ -284,24 +284,24 @@ def algo(value, value1, value2, made, col):
                 f += c
                 n+=b
                 if n>0:
-                    b=abcs(25, 2)
-                    motor(2,25,0)
+                    b=abcs(35, 2)
+                    motor(2,35,0)
                     GPIO.output(22, 0)
                     GPIO.output(12, 1)
-                    time.sleep(0.3)
+                    time.sleep(0.2)
                     n+=b
-                    b=abcs(-25, 2)
-                    motor(2,-25,0)
+                    b=abcs(-35, 2)
+                    motor(2,-35,0)
                     n+=b
                 else:
-                    b=abcs(-25, 2)
-                    motor(2,-25,0)
+                    b=abcs(-35, 2)
+                    motor(2,-35,0)
                     GPIO.output(22, 0)
                     GPIO.output(12, 1)
-                    time.sleep(0.3)
+                    time.sleep(0.2)
                     n+=b
-                    b=abcs(25, 2)
-                    motor(2,25,0)
+                    b=abcs(35, 2)
+                    motor(2,35,0)
                     n+=b
                 value1[1][value1[1].index(x)] = ''
 

@@ -9,24 +9,6 @@ def algorithm(col):
     scheme = recognize()[0]
 
     blocks = recognize()[1]
-    arr = ['R', 'G', 'Y', 'B', 'C']
-    ar = ['r', 'g', 'y', 'b', 'c']
-    k = ''
-    j = ''
-    for i in arr:
-        if i not in blocks[0]:
-            k = i
-
-    for i in ar:
-        if i not in blocks[1]:
-            j = i
-
-    a = blocks[0].index('W')
-    b = blocks[1].index('w')
-    blocks[0].pop(a)
-    blocks[1].pop(b)
-    blocks[0].insert(a, k)
-    blocks[1].insert(b, j)
 
     made = [[], [], []]
     indexes = []

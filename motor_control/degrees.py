@@ -25,9 +25,9 @@ def degrees(m, n, f, k):
             return round(123.9734 - m,4),round( -n - 71.2861,4),round( -f + 37.3127,4)
         else:
             if 0 <= m < 90:
-                return round(60.0266 - m,4),round( -n + 71.2861,4),round( -f - 37.3127,4)
+                return round(58.0266 - m,4),round( -n + 71.2861,4),round( -f - 37.3127,4)
             else:
-                return round(420.0266 - m,4),round( -n + 71.2861,4),round( -f - 37.3127,4)
+                return round(418.0266 - m,4),round( -n + 71.2861,4),round( -f - 37.3127,4)
 
 
     if k == 2:
@@ -52,12 +52,12 @@ def degrees(m, n, f, k):
 
     if k == 6:
         if 270 > m >= 90:
-            return round(236.0266 - m,4),round( -n + 71.2861,4),round( -f - 37.3127,4)
+            return round(242.0266 - m,4),round( -n + 71.2861,4),round( -f - 37.3127,4)
         else:
             if 0 <= m < 90:
-                return round(-56.0266 - m,4),round( -n - 71.2861,4),round( -f + 37.3127,4)
+                return round(-55.0266 - m,4),round( -n - 71.2861,4),round( -f + 37.3127,4)
             else:
-                return round(303.9734 - m,4),round( -n - 71.2861,4),round( -f + 37.3127,4)
+                return round(304.9734 - m,4),round( -n - 71.2861,4),round( -f + 37.3127,4)
 
 
     if k == 7:
@@ -65,15 +65,15 @@ def degrees(m, n, f, k):
             return round(220.7077 - m,4),round( -n + 49.3163,4),round( -f - 3.9761,4)
         else:
             if 0 <= m < 63.4349:
-                return round(-95.8379 - m,4),round( -n - 49.3163,4),round( -f + 51.1541,4)
+                return round(-91.8379 - m,4),round( -n - 49.3163,4),round( -f + 51.1541,4)
             else:
-                return round(270.1621 - m,4),round( -n - 49.3163,4),round( -f + 51.1541,4)
+                return round(269.1621 - m,4),round( -n - 49.3163,4),round( -f + 51.1541,4)
 
     if k == 8:
         if 296.5651 > m >= 116.5651:
-            return round(275.8379 - m,4),round( -n + 49.3163,4),round( -f - 51.1541,4)
+            return round(277.8379 - m,4),round( -n + 49.3163,4),round( -f - 51.1541,4)
         else:
             if 0 <= m < 116.5651:
-                return round(-37 - m,4),round( -n - 50,4),round( -f - 8,4)
+                return round(-35 - m,4),round( -n - 50,4),round( -f - 4,4)
             else:
-                return round(323 - m,4),round( -n - 50,4),round( -f - 8,4)
+                return round(325 - m,4),round( -n - 50,4),round( -f - 4,4)

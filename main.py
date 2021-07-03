@@ -41,26 +41,6 @@ pprint(scheme)
 blocks = recognize()[1]
 pprint(blocks)
 
-arr = ['R', 'G', 'Y', 'B', 'C']
-ar = ['r', 'g', 'y', 'b', 'c']
-k = ''
-j = ''
-for i in arr:
-    if i not in blocks[0]:
-        k = i
-
-for i in ar:
-    if i not in blocks[1]:
-        j = i
-
-i = blocks[0].index('W')
-u = blocks[1].index('w')
-blocks[0].pop(i)
-blocks[1].pop(u)
-blocks[0].insert(i, k)
-blocks[1].insert(u, j)
-
-print(blocks)
 db = []
 made = [[], [], []]
 dic = {}

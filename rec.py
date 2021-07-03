@@ -20,10 +20,10 @@ def recognize():
 
 
     first = [[325, 469], [671, 306], [1010, 362]]
-    first_first = [[679, 293], [958, 300]]
+    first_first = [[649, 347],[1024, 364]]
 
-    second = [[228, 457], [633, 252], [1050, 264]]
-    second_second = [[632, 266],[1031, 270]]
+    second = [[224, 439], [646, 253], [1071, 265]]
+    second_second = [[633, 254],[1018, 261]]
 
 
 
@@ -43,11 +43,11 @@ def recognize():
     high_red_2 = [15, 255, 255]
 
     # Blue color
-    low_blue = [80, 80, 45]
+    low_blue = [80, 50, 30]
     high_blue = [125, 255, 255]
 
     # Green color
-    low_green = [45, 80, 45]
+    low_green = [45, 100, 30]
     high_green = [80, 255, 255]
 
     # Yellow color
@@ -56,11 +56,11 @@ def recognize():
 
     # Black color
     low_black = [0, 0, -10]
-    high_black = [180, 255, 50]
+    high_black = [180, 100, 50]
 
     # White color
-    low_white = [75, 0, 150]
-    high_white= [94, 30, 255]
+    low_white = [75, 100, 150]
+    high_white= [94, 255, 255]
 
     for i in column1:
         h, s, v = pix[i[0], i[1]]
@@ -161,12 +161,12 @@ def recognize():
         is_white = ((low_white <= pixel) & (pixel <= high_white)).all()
         if is_blue == True:
             blocks[0].append("B")
+        elif is_green == True:
+            blocks[0].append("G")
         elif is_black == True:
             blocks[0].append("C")
         elif is_yellow == True:
             blocks[0].append("Y")
-        elif is_green == True:
-            blocks[0].append("G")
         elif is_red == True:
             blocks[0].append("R")
         else:
@@ -279,4 +279,3 @@ def recognize():
     return scheme, blocks
     pprint(scheme)
     pprint(blocks)
-
