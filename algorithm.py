@@ -9,15 +9,33 @@ def algorithm(col):
     scheme = recognize()[0]
 
     blocks = recognize()[1]
+    arr = ['R', 'G', 'Y', 'B', 'C']
+    ar = ['r', 'g', 'y', 'b', 'c']
+    k = ''
+    j = ''
+    for i in arr:
+        if i not in blocks[0]:
+            k = i
+
+    for i in ar:
+        if i not in blocks[1]:
+            j = i
+
+    a = blocks[0].index('W')
+    b = blocks[1].index('w')
+    blocks[0].pop(a)
+    blocks[1].pop(b)
+    blocks[0].insert(a, k)
+    blocks[1].insert(b, j)
 
     made = [[], [], []]
     indexes = []
-    
+
     global m
     global n
     global f
     global kam
-    
+
 
     if col == 0:
         w = 8
@@ -33,7 +51,7 @@ def algorithm(col):
 
 
     def output_to_small(value):
-        
+
         global n, f, m
         global kam
         a=abcs(degrees(m, n, f, value + 1)[0], 1)
@@ -51,7 +69,7 @@ def algorithm(col):
         kam += math.fabs(a)
 
     def output_to_big(value):
-        
+
         global n, f, m
         global kam
         a=abcs(degrees(m, n, f, value + 1)[0], 1)
@@ -69,7 +87,7 @@ def algorithm(col):
         kam += math.fabs(a)
 
     def output_from_small(value):
-        
+
         global n, f, m
         global kam
         h = w
@@ -87,7 +105,7 @@ def algorithm(col):
         kam += math.fabs(a)
 
     def output_from_big(value):
-        
+
         global n, f, m
         global kam
         h = w
@@ -105,8 +123,8 @@ def algorithm(col):
         kam += math.fabs(a)
 
 
-    def same(value, value1): 
-        
+    def same(value, value1):
+
         global n, f, m
         global kam
         a=abcs(degrees(m, n, f, value1 + 1)[0], 1)
@@ -126,9 +144,9 @@ def algorithm(col):
     for x in blocks[1]:
         if x not in scheme[0] + scheme[1] + scheme[2]:
             if blocks[0][blocks[1].index(x)] in scheme[0] + scheme[1] + scheme[2]:
-                
+
                 blocks[1][blocks[1].index(x)] = ''
-    
+
 
     if col == 0:
         a = 0
@@ -142,8 +160,8 @@ def algorithm(col):
 
 
     for col in range(a, b):
-        
-        
+
+
         first, second, third = scheme[col]
         # Если на схеме в ряду только 1 кубик, то ищем среди маленьких кубиков кубик нужного цвета
         if second == '':
@@ -158,7 +176,7 @@ def algorithm(col):
 
         big = blocks[0].index(first)
         if blocks[1][big] == '':  # Проверяем есть ли сверху маленький кубик
-            
+
             output_to_big(big)
             made[col].append(blocks[0][big])
             output_from_big(big)
@@ -203,7 +221,7 @@ def algorithm(col):
 
         if third == '':  # Если на схеме нужно построить только 2 ряда
             if second in blocks[1]:  # Если маленький кубик который нам нужен находится во 2 ряду, то перемещаем его
-                
+
                 output_to_small(blocks[1].index(second))
                 made[col].append(blocks[1][blocks[1].index(second)])
                 output_from_small(blocks[1].index(second))
@@ -211,7 +229,7 @@ def algorithm(col):
                 blocks[1][blocks[1].index(second)] = ''
 
             else:  # Иначе кубик находится в 3 ряду, где 2 кубика больших, перемещаем его
-                
+
                 output_to_small(blocks[2].index(second))
                 made[col].append(blocks[2][blocks[2].index(second)])
                 output_from_small(blocks[2].index(second))
@@ -256,7 +274,7 @@ def algorithm(col):
 
         if third in blocks[1]: # Если один из элементов 3 столбца есть в колоде на 2 ряду, то перемещаеам его в нужный столбец
 
-            
+
             output_to_small(blocks[1].index(third))
             made[col].append(blocks[1][blocks[1].index(third)])
             output_from_small(blocks[1].index(third))
@@ -264,7 +282,7 @@ def algorithm(col):
             blocks[1][blocks[1].index(third)] = ''
 
         else:  # Если один из элементов 3 столбца есть в колоде на 3 ряду, то перемещаеам его в нужный столбец
-            
+
             output_to_small(blocks[2].index(third))
             made[col].append(blocks[2][blocks[2].index(third)])
             output_from_small(blocks[2].index(third))
@@ -272,4 +290,3 @@ def algorithm(col):
             blocks[2][blocks[2].index(third)] = ''
 
     return kam
-

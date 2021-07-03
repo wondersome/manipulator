@@ -21,3 +21,9 @@ def blocks13():
     camera.capture('13.jpg')
     camera.stop_preview()
     camera.close()
+def block():
+    camera = PiCamera()
+    camera.start_preview()
+    camera.capture('block.jpg')
+    camera.stop_preview()
+    camera.close()

@@ -1,7 +1,8 @@
+import datetime
 from motor_control.degrees import degrees
 from pprint import pprint
 from motor_control.height import height
-from camera import scheme, blocks35, blocks13
+from camera import block, scheme, blocks35, blocks13
 from rec import recognize
 from algo_func import algo
 import time
@@ -9,7 +10,11 @@ import collections
 import RPi.GPIO as GPIO
 from algorithm import algorithm
 from motor_control.motors import motor
-scheme()
+from num import abcs
+
+
+
+
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
@@ -22,25 +27,49 @@ GPIO.output(12, 1)
 GPIO.setup(27, GPIO.IN)
 while GPIO.input(27)==1 :
     time.sleep(0.1)
+scheme()
 GPIO.output(16,0)
-
+a=abcs(140, 1)
 motor(1,140,0)
 blocks35()
-
+a += abcs(60, 1)
 motor(1,60,0)
 blocks13()
-
-
 
 scheme = recognize()[0]
 pprint(scheme)
 blocks = recognize()[1]
 pprint(blocks)
+
+arr = ['R', 'G', 'Y', 'B', 'C']
+ar = ['r', 'g', 'y', 'b', 'c']
+k = ''
+j = ''
+for i in arr:
+    if i not in blocks[0]:
+        k = i
+
+for i in ar:
+    if i not in blocks[1]:
+        j = i
+
+i = blocks[0].index('W')
+u = blocks[1].index('w')
+blocks[0].pop(i)
+blocks[1].pop(u)
+blocks[0].insert(i, k)
+blocks[1].insert(u, j)
+
+print(blocks)
 db = []
 made = [[], [], []]
 dic = {}
 file = open("shance.txt","w")
-file.write('200'+'\n')
+file.write(str(a)+'\n')
+file.write('121'+'\n')
+file.write('-31')
+file = open("sum.txt","w")
+file.write(str(a)+'\n')
 file.write('0'+'\n')
 file.write('0')
 file.close()
@@ -59,3 +88,23 @@ for key in dic:
 
 
 pprint(db)
+
+
+with open('sum.txt') as file:
+    content= file.readlines()
+content = [x.strip() for x in content]
+d=float(content[0])
+s=float(content[1])
+t=float(content[2])
+file.close()
+motor(1,-d, 0)
+motor(3, -t, 0)
+motor(2, -s, 0)
+GPIO.setup(26, GPIO.OUT)
+
+t_end = time.time() + 4
+while time.time() < t_end:
+    GPIO.output(26, 1)
+    time.sleep(0.001)
+    GPIO.output(26, 0)
+    time.sleep(0.001)

@@ -4,16 +4,16 @@ import time
 
 
 def motor(m, n, l):
-    if m == 1:
+    if m == 2:
         dir = 23
         step = 24
-        coef = 0.075
-        k = 0.002
-    elif m == 2:
+        coef = 0.1125
+        k = 0.0005
+    elif m == 1:
         dir = 20
         step = 21
-        coef = 0.1125
-        k = 0.001
+        coef = 0.075
+        k = 0.002
     elif m == 4:
         dir = 5
         step = 6
@@ -24,7 +24,7 @@ def motor(m, n, l):
         dir = 18
         step = 17
         coef = 0.225
-        k = 0.003
+        k = 0.0005
         n = -n
     za_warudo=0
     GPIO.setwarnings(False)
@@ -49,17 +49,17 @@ def motor(m, n, l):
         time.sleep(k)
         i = i + 1
         za_warudo+=k*2
-        if za_warudo>0.2 and m==1:
+        if za_warudo>0.05 and m==1:
             za_warudo=0
-            if  i < 0.48*first:
-                if k>0.0003:
+            if  i < 0.4*first:
+                if k>0.0005:
                     u = i
                     k=round(k-0.0001, 4)
             else:
-                if k<0.002 and i >= first - u-80:
+                if k<0.002 and i >= first - u:
                     k=round(k+0.0001, 4)
     if m == 4:
-        time.sleep(0.1)
+        time.sleep(0.3)
         GPIO.output(dir, True)
         i = int(0)
         if l==1:
@@ -68,7 +68,7 @@ def motor(m, n, l):
         else:
             GPIO.output(22, 0)
             GPIO.output(12, 1)
-        time.sleep(0.5)
+        time.sleep(0.3)
         while i < first:
             GPIO.output(step, True)
             time.sleep(0.0002)
