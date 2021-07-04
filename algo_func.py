@@ -286,6 +286,7 @@ def algo(value, value1, value2, made, col):
                 if n>0:
                     b=abcs(35, 2)
                     motor(2,35,0)
+                    motor.sleep(0.3)
                     GPIO.output(22, 0)
                     GPIO.output(12, 1)
                     time.sleep(0.2)
@@ -296,6 +297,9 @@ def algo(value, value1, value2, made, col):
                 else:
                     b=abcs(-35, 2)
                     motor(2,-35,0)
+                    time.sleep(0.3)
+
+
                     GPIO.output(22, 0)
                     GPIO.output(12, 1)
                     time.sleep(0.2)

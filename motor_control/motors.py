@@ -62,10 +62,12 @@ def motor(m, n, l):
         time.sleep(0.3)
         GPIO.output(dir, True)
         i = int(0)
+
         if l==1:
             GPIO.output(22, 1)
             GPIO.output(12, 0)
         else:
+            time.sleep(0.3)
             GPIO.output(22, 0)
             GPIO.output(12, 1)
         time.sleep(0.3)

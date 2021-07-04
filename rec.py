@@ -56,7 +56,7 @@ def recognize():
 
     # Black color
     low_black = [0, 0, -10]
-    high_black = [180, 100, 50]
+    high_black = [180, 130, 50]
 
     # White color
     low_white = [75, 100, 150]
